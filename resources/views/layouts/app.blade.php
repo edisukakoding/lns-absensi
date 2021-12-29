@@ -13,6 +13,7 @@
     <link href="{{ asset('ruang-admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('ruang-admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('ruang-admin/css/ruang-admin.min.css') }}" rel="stylesheet">
+    @stack('styles')
 </head>
 
 <body id="page-top">
@@ -35,9 +36,8 @@
     <script src="{{ asset('ruang-admin/') }}/vendor/jquery/jquery.min.js"></script>
     <script src="{{ asset('ruang-admin/') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('ruang-admin/') }}/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="{{ asset('ruang-admin/') }}/js/ruang-admin.min.js"></script>
-    <script src="{{ asset('ruang-admin/') }}/vendor/chart.js/Chart.min.js"></script>
-    <script src="{{ asset('ruang-admin/') }}/js/demo/chart-area-demo.js"></script>
+    <script src="{{ asset('ruang-admin/') }}/js/ruang-admin.js"></script>
+    @stack('scripts')
 </body>
 
 </html>
