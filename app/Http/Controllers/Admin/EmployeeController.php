@@ -63,7 +63,9 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.employee.create', [
+            'positions' => \App\Models\Position::where('active', true)->get()
+        ]);
     }
 
     /**
@@ -74,7 +76,22 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'position_id' => 'numeric|required|exists:positions,id',
+            'gender' => 'required',
+            'name' => 'required|max:100|min:2',
+            'nik' => 'required|max:16|min:16|unique:employees,nik',
+        ]);
+
+        $employee = new Employee();
+        $employee->position_id  = $request->position_id;
+        $employee->gender       = $request->gender;
+        $employee->name         = $request->name;
+        $employee->nik          = $request->nik;
+        $employee->address      = $request->address;
+        $employee->active       = $request->active == 'on' ? true : false;
+        $employee->save();
+        return redirect('admin/employee')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
