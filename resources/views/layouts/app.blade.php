@@ -13,6 +13,7 @@
     <link href="{{ asset('ruang-admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('ruang-admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('ruang-admin/css/ruang-admin.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/nprogress.css') }}">
     @stack('styles')
 </head>
 
@@ -37,6 +38,7 @@
     <script src="{{ asset('ruang-admin/') }}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('ruang-admin/') }}/vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="{{ asset('ruang-admin/') }}/js/ruang-admin.js"></script>
+    <script src="{{ asset('js/nprogress.js') }}"></script>
     @stack('scripts')
 </body>
 

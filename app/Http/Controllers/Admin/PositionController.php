@@ -23,10 +23,24 @@ class PositionController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row){
                 $btn = "
-                    <a href='". route('position.edit', $row->id) ."' class='btn btn-warning btn-sm'>Edit</a>
-                    <button class='btn btn-danger btn-sm btn-delete' data-id='{$row->id}'>Delete</button>
-                ";
-                return $btn;
+                <a 
+                    href='". route('employee.edit', $row->id) ."' 
+                    class='btn btn-warning btn-sm'
+                    data-toggle='tooltip' 
+                    data-placement='top' 
+                    title='Edit'
+                    ><i class='fas fa-pencil-alt'></i>
+                </a>
+                <button 
+                    class='btn btn-danger btn-sm btn-delete' 
+                    data-id='{$row->id}'
+                    data-toggle='tooltip' 
+                    data-placement='top' 
+                    title='Hapus'
+                    ><i data-id='{$row->id}' class='fas fa-trash-alt btn-delete'></i>
+                </button>
+            ";
+            return $btn;
             })
             ->rawColumns(['action'])
             ->make(true);;

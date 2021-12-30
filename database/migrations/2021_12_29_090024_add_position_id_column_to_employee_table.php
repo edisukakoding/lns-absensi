@@ -14,7 +14,7 @@ class AddPositionIdColumnToEmployeeTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->bigInteger('position_id');
+            $table->bigInteger('position_id')->unsigned()->after('id');
             $table->index('position_id');
             $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
         });
