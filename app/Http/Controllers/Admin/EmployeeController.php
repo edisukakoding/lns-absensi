@@ -102,7 +102,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        return \Nette\Utils\Json::encode($employee);
+        return view('admin.employee._modal', compact('employee'));
     }
 
     /**

@@ -160,12 +160,8 @@
 
                 if ($(e.target).hasClass('btn-show')) {
                     let id = $(e.target).data('id');
-                    $.ajax({
-                        url: `{{ route('employee.index') }}/${id}`,
-                        success: function(res) {
-                            $("#modal-employee-wrapper").load(`{{ route('modal') }}`);
-                        }
-                    })
+                    $("#modal-employee-wrapper").load(`{{ url('admin/employee') }}/${id}`);
+                 
                 }
             });
 
