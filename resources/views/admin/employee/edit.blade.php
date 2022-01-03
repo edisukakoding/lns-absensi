@@ -15,14 +15,14 @@
         <!-- Row -->
         <div class="row">
             <!-- DataTable with Hover -->
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Tambah Jabatan</h6>
                     </div>
                     <div class="card-body">
                         <!-- Horizontal Form -->
-                        <form action="{{ route('position.update', $position->id) }}" method="POST">
+                        <form action="{{ route('employee.update', $employee->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -35,7 +35,7 @@
                                                 <option value="">- Pilih Jabatan -</option>
                                                 @foreach ($positions as $position)
                                                     <option value="{{ $position->id }}"
-                                                        {{ old('position_id') == $position->id ? 'selected' : '' }}>
+                                                        {{ old('position_id', $employee->position_id) == $position->id ? 'selected' : '' }}>
                                                         {{ $position->name }}</option>
                                                 @endforeach
                                             </select>
@@ -56,7 +56,7 @@
                                                 <option value="Not Set">- Not Set -</option>
                                                 @foreach ($genders as $gender)
                                                     <option value="{{ $gender }}"
-                                                        {{ $gender == old('gender') ? 'selected' : '' }}>
+                                                        {{ $gender == old('gender', $employee->gender) ? 'selected' : '' }}>
                                                         {{ $gender }}</option>
                                                 @endforeach
                                             </select>
@@ -72,7 +72,7 @@
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control @error('name') is-invalid @enderror"
                                                 id="name" placeholder="Nama Pegawai" name="name"
-                                                value="{{ old('name') }}">
+                                                value="{{ old('name', $employee->name) }}">
                                             @error('name')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -87,7 +87,7 @@
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control @error('nik') is-invalid @enderror"
                                                 id="nik" placeholder="Nomor Induk Kependudukan" name="nik"
-                                                value="{{ old('nik') }}">
+                                                value="{{ old('nik', $employee->nik) }}">
                                             @error('nik')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -98,17 +98,15 @@
                                     <div class="form-group row">
                                         <label for="address" class="col-sm-3 col-form-label">Alamat</label>
                                         <div class="col-sm-9">
-                                            <textarea name="address" id="address" class="form-control">
-                                                    {{ old('address') }}
-                                                </textarea>
+                                            <textarea name="address" id="address" class="form-control">{!! old('address', $employee->address) !!}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-3">Active</div>
                                         <div class="col-sm-9">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="active" checked
-                                                    name="active">
+                                                <input type="checkbox" class="custom-control-input" id="active"
+                                                    {{ $employee->active ? 'checked' : '' }} name="active">
                                                 <label class="custom-control-label" for="active">centang jika pegawai masih
                                                     aktif</label>
                                             </div>
@@ -118,7 +116,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group row">
                                         <div class="col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Tambah</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                     </div>
                                 </div>

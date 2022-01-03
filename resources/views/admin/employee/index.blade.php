@@ -49,8 +49,10 @@
         </div>
         <!--Row-->
 
+        <div id="modal-employee-wrapper"></div>
     </div>
     <!---Container Fluid-->
+
 @endsection
 
 @push('styles')
@@ -155,7 +157,19 @@
                         }
                     })
                 }
-            })
+
+                if ($(e.target).hasClass('btn-show')) {
+                    let id = $(e.target).data('id');
+                    $.ajax({
+                        url: `{{ route('employee.index') }}/${id}`,
+                        success: function(res) {
+                            $("#modal-employee-wrapper").load(`{{ route('modal') }}`);
+                        }
+                    })
+                }
+            });
+
+
         });
     </script>
 @endpush

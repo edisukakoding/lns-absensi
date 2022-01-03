@@ -28,7 +28,7 @@ class EmployeeController extends Controller
                         data-toggle='tooltip' 
                         data-placement='top' 
                         title='Detail'
-                        ><i class='fas fa-eye'></i>
+                        ><i data-id='{$row->id}' class='fas fa-eye btn-show'></i>
                     </button>
                     <a 
                         href='". route('employee.edit', $row->id) ."' 
@@ -86,9 +86,9 @@ class EmployeeController extends Controller
         $employee = new Employee();
         $employee->position_id  = $request->position_id;
         $employee->gender       = $request->gender;
-        $employee->name         = $request->name;
-        $employee->nik          = $request->nik;
-        $employee->address      = $request->address;
+        $employee->name         = trim($request->name);
+        $employee->nik          = trim($request->nik);
+        $employee->address      = trim($request->address);
         $employee->active       = $request->active == 'on' ? true : false;
         $employee->save();
         return redirect('admin/employee')->with('success', 'Data berhasil ditambahkan');
@@ -102,7 +102,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return \Nette\Utils\Json::encode($employee);
     }
 
     /**
@@ -113,7 +113,11 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        // dd($employee);
+        return view('admin.employee.edit', [
+            'positions' => \App\Models\Position::where('active', true)->get(),
+            'employee' => $employee
+        ]);
     }
 
     /**
@@ -125,7 +129,21 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $request->validate([
+            'position_id' => 'numeric|required|exists:positions,id',
+            'gender' => 'required',
+            'name' => 'required|max:100|min:2',
+            'nik' => 'required|max:16|min:16',
+        ]);
+
+        $employee->position_id  = $request->position_id;
+        $employee->gender       = $request->gender;
+        $employee->name         = trim($request->name);
+        $employee->nik          = trim($request->nik);
+        $employee->address      = trim($request->address);
+        $employee->active       = $request->active == 'on' ? true : false;
+        $employee->save();
+        return redirect('admin/employee')->with('success', 'Data berhasil diupdate');
     }
 
     /**

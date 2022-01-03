@@ -17,9 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard', function() {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/modal', function() {
+        return view('layouts.partials.modal');
+    })->name('modal');
+});
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
