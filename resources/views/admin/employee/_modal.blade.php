@@ -31,7 +31,7 @@
                         <td><span class="fas {{ $employee->active ? 'fa-check text-success' : 'fa-times text-danger' }}"></span></td>
                     </tr>
                     <tr>
-                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
                         <td>{!! $employee->address !!}</td>
                     </tr>
                 </table>
