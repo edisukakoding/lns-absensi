@@ -31,8 +31,6 @@
                             style="width: 100%">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>ID</th>
-                                    <th>NIK</th>
                                     <th>Nama</th>
                                     <th>Jabatan</th>
                                     <th>Jenis Kelamin</th>
@@ -79,14 +77,7 @@
                 ajax: {
                     url: `{{ route('employee.index') }}`,
                 },
-                columns: [{
-                        data: 'id',
-                        name: 'id'
-                    },
-                    {
-                        data: 'nik',
-                        name: 'nik'
-                    },
+                columns: [
                     {
                         data: 'name',
                         name: 'name'

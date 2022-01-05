@@ -32,9 +32,9 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="ui-colors.html">
-            <i class="fas fa-fw fa-palette"></i>
-            <span>UI Colors</span>
+        <a class="nav-link" href="{{ route('attendance.index', []) }}">
+            <i class="fas fa-fw fa-fingerprint"></i>
+            <span>Absensi</span>
         </a>
     </li>
     <hr class="sidebar-divider">
