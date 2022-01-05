@@ -49,7 +49,7 @@
     </form>
     <hr>
     <div class="text-center">
-      <a class="font-weight-bold small" href="{{ route('register') }}">Create an Account!</a>
+      <a class="font-weight-bold small" href="{{ route('cek-nik.create') }}">Create an Account!</a>
     </div>
     <div class="text-center">
     </div>

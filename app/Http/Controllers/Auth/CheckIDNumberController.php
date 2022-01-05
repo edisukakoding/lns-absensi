@@ -14,7 +14,7 @@ class CheckIDNumberController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.check-id-number');
     }
 
     /**
@@ -25,6 +25,14 @@ class CheckIDNumberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nik' => 'required|min:16|max:16|exists:employees,nik'
+        ]);
+
+        if($validated) {
+            return redirect("/register?nik={$request->nik}");
+        }
+
+        return redirect()->back();
     }
 }

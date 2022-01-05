@@ -14,11 +14,11 @@
             {{session()->get('status')}}
         </div>
     @endif
-    <form class="user" action="{{ route('password.nik') }}" method="POST">
+    <form class="user" action="{{ route('cek-nik.store') }}" method="POST">
         @csrf
       <div class="form-group">
         <input type="text" class="form-control @error('nik') is-invalid @enderror" id="nik" aria-describedby="nikHelp"
-            placeholder="Enter nik Address" name="nik" value="{{ old('nik') }}" required autofocus>
+            placeholder="Masukan Nomor Induk Kependudukan" name="nik" value="{{ old('nik') }}" required autofocus>
         @error('nik')
         <div class="invalid-feedback">
             {{$message}}
@@ -26,7 +26,7 @@
         @enderror
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
+        <button type="submit" class="btn btn-primary btn-block">Cek NIK</button>
       </div>
     </form>
 </div>

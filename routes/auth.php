@@ -12,7 +12,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
-                ->middleware('guest')
+                ->middleware(['guest', 'cek-nik'])
                 ->name('register');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
@@ -64,6 +64,6 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
 
-Route::get('/cek-nik', [CheckIDNumberController::class, 'create'])
-                ->middleware('guest')
-                ->name('nik.create');
+Route::resource('/cek-nik', CheckIDNumberController::class)
+                ->only(['create', 'store'])
+                ->middleware('guest');
