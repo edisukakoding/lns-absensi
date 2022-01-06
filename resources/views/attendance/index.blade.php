@@ -32,7 +32,9 @@
                                         class="card-img-top" alt="...">
                                     <div class="card-body">
                                         <p class="card-text text-center" id="jam"></p>
-                                        <button class="btn btn-warning btn-block">Checkin</button>
+                                        <button class="btn btn-block {{ $last_absen ? 'btn-danger' : 'btn-warning' }}"
+                                            id="btn-absen"
+                                            {{ time() <= strtotime($work_hours->break) ? 'disabled' : '' }}>{{ $last_absen ? 'Checkout' : 'Checkin' }}</button>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +126,16 @@
                 },
                 columns: [{
                         data: 'attendance_date',
-                        name: 'attendance_date'
+                        name: 'attendance_date',
+                        render: function(data, type, row, meta) {
+                            if (row.checkin_time > row.checkin_limit) {
+                                console.log(meta)
+                                $(`#${meta.settings.sTableId} tbody tr:nth-child(${meta.row+1})`)
+                                    .addClass(
+                                        'bg-warning text-white')
+                            }
+                            return moment(data).locale('id').format('LLL');
+                        }
                     },
                     {
                         data: 'checkin_time',
@@ -143,6 +154,31 @@
                     '[ ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ' ]'
                 );
             }, 1000);
+
+            $("#btn-absen").on('click', function() {
+                let btn = $(this);
+                btn.attr('disabled', true).html('Loading...');
+
+                $.ajax({
+                    url: `{{ route('attendance.store') }}`,
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        _token: `{{ csrf_token() }}`,
+                        employee_id: `{{ $employee->id }}`
+                    }),
+                    success: function(res) {
+                        console.log(res)
+                        table.ajax.reload();
+                        btn
+                            .attr('disabled', true)
+                            .html('Checkout')
+                            .removeClass('btn-warning')
+                            .addClass('btn-danger')
+                    }
+                })
+            })
         });
     </script>
 @endpush

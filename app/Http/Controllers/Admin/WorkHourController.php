@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Position;
+use App\Models\WorkHour;
 use Illuminate\Http\Request;
-use Nette\Utils\Json;
 use Yajra\DataTables\DataTables;
 
-class PositionController extends Controller
+class WorkHourController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +17,13 @@ class PositionController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $position   = Position::all();
-            return DataTables::of($position)
+            $workhour   = WorkHour::all();
+            return DataTables::of($workhour)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = "
                 <a 
-                    href='" . route('employee.edit', $row->id) . "' 
+                    href='" . route('workhours.edit', $row->id) . "' 
                     class='btn btn-warning btn-sm'
                     data-toggle='tooltip' 
                     data-placement='top' 
@@ -45,7 +44,7 @@ class PositionController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('admin.position.index');
+        return \view('admin.settings.workhour.index');
     }
 
     /**
@@ -55,7 +54,7 @@ class PositionController extends Controller
      */
     public function create()
     {
-        return view('admin.position.create');
+        return \view('admin.settings.workhour.create');
     }
 
     /**
@@ -67,23 +66,30 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:positions,name'
+            'in' => 'required',
+            'out' => 'required',
+            'break' => 'required',
         ]);
 
-        $position           = new Position();
-        $position->name     = $request->name;
-        $position->active   = $request->active == 'on' ? true : false;
-        $position->save();
-        return redirect('admin/position')->with('success', 'Data Jabatan berhasil ditambahkan');
+        if ($request->status == 'on') {
+            WorkHour::where('status', 'ACTIVE')->update(['status' => 'INACTIVE']);
+        }
+        $workhour           = new WorkHour();
+        $workhour->in       = $request->in;
+        $workhour->out      = $request->out;
+        $workhour->break    = $request->break;
+        $workhour->status   = $request->status == 'on' ? 'ACTIVE' : 'INACTIVE';
+        $workhour->save();
+        return redirect('admin/setting/workhours')->with('success', 'Jam kerja berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Position  $position
+     * @param  \App\Models\WorkHour  $workHour
      * @return \Illuminate\Http\Response
      */
-    public function show(Position $position)
+    public function show(WorkHour $workhour)
     {
         //
     }
@@ -91,41 +97,48 @@ class PositionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Position  $position
+     * @param  \App\Models\WorkHour  $workHour
      * @return \Illuminate\Http\Response
      */
-    public function edit(Position $position)
+    public function edit(WorkHour $workhour)
     {
-        return view('admin.position.edit', compact('position'));
+        return \view('admin.settings.workhour.edit', \compact('workhour'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Position  $position
+     * @param  \App\Models\WorkHour  $workHour
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Position $position)
+    public function update(Request $request, WorkHour $workhour)
     {
         $request->validate([
-            'name' => 'required'
+            'in' => 'required',
+            'out' => 'required',
+            'break' => 'required',
         ]);
 
-        $position->name     = $request->name;
-        $position->active   = $request->active == 'on' ? true : false;
-        $position->save();
-        return redirect('admin/position')->with('success', 'Jabatan berhasil diupdate');
+        if ($request->status == 'on') {
+            WorkHour::where('status', 'ACTIVE')->update(['status' => 'INACTIVE']);
+        }
+        $workhour->in       = $request->in;
+        $workhour->out      = $request->out;
+        $workhour->break    = $request->break;
+        $workhour->status   = $request->status == 'on' ? 'ACTIVE' : 'INACTIVE';
+        $workhour->save();
+        return redirect('admin/setting/workhours')->with('success', 'Jam kerja berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Position  $position
+     * @param  \App\Models\WorkHour  $workHour
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Position $position)
+    public function destroy(WorkHour $workhour)
     {
-        return Json::encode($position->delete());
+        return \Nette\Utils\Json::encode($workhour->delete());
     }
 }

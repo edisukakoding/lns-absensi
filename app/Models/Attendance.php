@@ -7,18 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $fillable = [
-    'attendance_date',
-    'checkin_limit',
-    'checkin_time',
-    'checkout_limit',
-    'checkout_time'
-  ];
+    protected $fillable = [
+        'attendance_date',
+        'checkin_limit',
+        'checkin_time',
+        'checkout_limit',
+        'checkout_time',
+        'employee_id'
+    ];
 
-  public function employee()
-  {
-    return $this->belongsTo(Employee::class);
-  }
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

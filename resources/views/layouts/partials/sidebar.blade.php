@@ -13,25 +13,28 @@
             <span>Dashboard</span></a>
     </li>
     <hr class="sidebar-divider">
-    <div class="sidebar-heading">
+    {{-- <div class="sidebar-heading">
         Administrasi
-    </div>
+    </div> --}}
     <li class="nav-item {{ in_array(Request::segment(2), ['position', 'employee']) ? 'active' : '' }}">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
             aria-expanded="true" aria-controls="collapseBootstrap">
             <i class="fas fa-fw fa-user-tie"></i>
             <span>Kepegawaian</span>
         </a>
-        <div id="collapseBootstrap" class="collapse {{ in_array(Request::segment(2), ['position', 'employee']) ? 'show' : '' }}" aria-labelledby="headingBootstrap"
-            data-parent="#accordionSidebar">
+        <div id="collapseBootstrap"
+            class="collapse {{ in_array(Request::segment(2), ['position', 'employee']) ? 'show' : '' }}"
+            aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Kepegawaian</h6>
-                <a class="collapse-item {{ Request::segment(2) == 'position' ? 'active' : '' }}" href="{{ route('position.index', []) }}">Jabatan</a>
-                <a class="collapse-item {{ Request::segment(2) == 'employee' ? 'active' : '' }}" href="{{ route('employee.index', []) }}">Pegawai</a>
+                <a class="collapse-item {{ Request::segment(2) == 'position' ? 'active' : '' }}"
+                    href="{{ route('position.index', []) }}">Jabatan</a>
+                <a class="collapse-item {{ Request::segment(2) == 'employee' ? 'active' : '' }}"
+                    href="{{ route('employee.index', []) }}">Pegawai</a>
             </div>
         </div>
     </li>
-    <li class="nav-item">
+    <li class="nav-item {{ Request::segment(1) == 'attendance' ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('attendance.index', []) }}">
             <i class="fas fa-fw fa-fingerprint"></i>
             <span>Absensi</span>

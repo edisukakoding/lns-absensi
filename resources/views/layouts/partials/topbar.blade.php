@@ -4,7 +4,7 @@
                 <i class="fa fa-bars"></i>
             </button>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown no-arrow">
+                {{-- <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-search fa-fw"></i>
@@ -24,8 +24,8 @@
                             </div>
                         </form>
                     </div>
-                </li>
-                <li class="nav-item dropdown no-arrow mx-1">
+                </li> --}}
+                {{-- <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-bell fa-fw"></i>
@@ -71,8 +71,8 @@
                         </a>
                         <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                     </div>
-                </li>
-                <li class="nav-item dropdown no-arrow mx-1">
+                </li> --}}
+                {{-- <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-envelope fa-fw"></i>
@@ -111,8 +111,8 @@
                         </a>
                         <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                     </div>
-                </li>
-                <li class="nav-item dropdown no-arrow mx-1">
+                </li> --}}
+                {{-- <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-tasks fa-fw"></i>
@@ -158,29 +158,30 @@
                         </a>
                         <a class="dropdown-item text-center small text-gray-500" href="#">View All Taks</a>
                     </div>
-                </li>
-                <div class="topbar-divider d-none d-sm-block"></div>
+                </li> --}}
+                {{-- <div class="topbar-divider d-none d-sm-block"></div> --}}
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <img class="img-profile rounded-circle" src="{{ asset('ruang-admin/') }}/img/boy.png"
                             style="max-width: 60px">
-                        <span class="ml-2 d-none d-lg-inline text-white small">Maman Ketoprak</span>
+                        <span
+                            class="ml-2 d-none d-lg-inline text-white small">{{ Auth::user()->employee->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
+                        {{-- <a class="dropdown-item" href="#">
                             <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                             Profile
-                        </a>
-                        <a class="dropdown-item" href="#">
+                        </a> --}}
+                        <a class="dropdown-item" href="{{ route('workhours.index') }}">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                             Settings
                         </a>
-                        <a class="dropdown-item" href="#">
+                        {{-- <a class="dropdown-item" href="#">
                             <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                             Activity Log
-                        </a>
+                        </a> --}}
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal"
                             data-target="#logoutModal">

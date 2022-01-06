@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return view('homepage', ['ishome' => true]);
+    return view('homepage', ['ishome' => true]);
 });
 
 // Route::get('/dashboard', function () {
@@ -23,11 +23,11 @@ Route::get('/', function () {
 // })->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-  Route::get('/dashboard', function () {
-    return view('dashboard');
-  })->name('dashboard');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-  Route::resource('/attendance', AttendaceController::class);
+    Route::resource('/attendance', AttendaceController::class)->only(['index', 'store'])->middleware('isSetWorkHour');
 });
 
 require __DIR__ . '/auth.php';

@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\IsAdmin::class,
         'cek-nik' => \App\Http\Middleware\CheckIDNumber::class,
+        'isSetWorkHour' => \App\Http\Middleware\EmptyWorkHour::class
     ];
 }
