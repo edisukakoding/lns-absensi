@@ -15,6 +15,7 @@ class Employee extends Model
         'name',
         'address',
         'gender',
+        'image',
         'active'
     ];
 

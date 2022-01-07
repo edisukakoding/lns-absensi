@@ -19,20 +19,24 @@
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Tambah Pegawai</h6>
+                        @error('image') asdasdasd @enderror
                     </div>
                     <div class="card-body">
                         <!-- Horizontal Form -->
-                        <form action="{{ route('employee.store') }}" method="POST">
+                        <form action="{{ route('employee.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group row">
                                         <label for="position_id" class="col-sm-3 col-form-label">Jabatan</label>
                                         <div class="col-sm-9">
-                                            <select name="position_id" id="position_id" class="form-control @error('position_id') is-invalid @enderror">
+                                            <select name="position_id" id="position_id"
+                                                class="form-control @error('position_id') is-invalid @enderror">
                                                 <option value="">- Pilih Jabatan -</option>
                                                 @foreach ($positions as $position)
-                                                    <option value="{{ $position->id }}" {{ old('position_id') == $position->id ? 'selected' : '' }}>{{ $position->name }}</option>
+                                                    <option value="{{ $position->id }}"
+                                                        {{ old('position_id') == $position->id ? 'selected' : '' }}>
+                                                        {{ $position->name }}</option>
                                                 @endforeach
                                             </select>
                                             @error('position_id')
@@ -51,7 +55,9 @@
                                             <select name="gender" id="gender" class="form-control">
                                                 <option value="Not Set">- Not Set -</option>
                                                 @foreach ($genders as $gender)
-                                                    <option value="{{ $gender }}" {{ $gender == old('gender') ? 'selected' : '' }}>{{ $gender }}</option>
+                                                    <option value="{{ $gender }}"
+                                                        {{ $gender == old('gender') ? 'selected' : '' }}>
+                                                        {{ $gender }}</option>
                                                 @endforeach
                                             </select>
                                             @error('gender')
@@ -92,9 +98,26 @@
                                     <div class="form-group row">
                                         <label for="address" class="col-sm-3 col-form-label">Alamat</label>
                                         <div class="col-sm-9">
-                                            <textarea name="address" id="address" class="form-control">
-                                                {{old('address')}}
-                                            </textarea>
+                                            <textarea name="address" id="address"
+                                                class="form-control">{{ old('address') }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="image" class="col-sm-3 col-form-label">Foto</label>
+                                        <div class="input-group col-sm-9">
+                                            <div class="custom-file">
+                                                <input type="file"
+                                                    class="custom-file-input @error('image') is-invalid @enderror"
+                                                    id="image" name="image" {{ old('image') }}>
+                                                <label class="custom-file-label" for="image" aria-describedby="image">Choose
+                                                    file</label>
+                                                @error('image')
+                                                    <div class="invalid-feedback position-absolute"
+                                                        style="top: 35px; z-index: 1;">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -103,7 +126,8 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="active" checked
                                                     name="active">
-                                                <label class="custom-control-label" for="active">centang jika pegawai masih
+                                                <label class="custom-control-label" for="active">centang jika pegawai
+                                                    masih
                                                     aktif</label>
                                             </div>
                                         </div>
@@ -116,7 +140,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                 </div>

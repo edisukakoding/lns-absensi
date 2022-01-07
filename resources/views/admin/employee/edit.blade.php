@@ -22,7 +22,8 @@
                     </div>
                     <div class="card-body">
                         <!-- Horizontal Form -->
-                        <form action="{{ route('employee.update', $employee->id) }}" method="POST">
+                        <form action="{{ route('employee.update', $employee->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
@@ -98,7 +99,26 @@
                                     <div class="form-group row">
                                         <label for="address" class="col-sm-3 col-form-label">Alamat</label>
                                         <div class="col-sm-9">
-                                            <textarea name="address" id="address" class="form-control">{!! old('address', $employee->address) !!}</textarea>
+                                            <textarea name="address" id="address"
+                                                class="form-control">{!! old('address', $employee->address) !!}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="image" class="col-sm-3 col-form-label">Foto</label>
+                                        <div class="input-group col-sm-9">
+                                            <div class="custom-file">
+                                                <input type="file"
+                                                    class="custom-file-input @error('image') is-invalid @enderror"
+                                                    id="image" name="image" {{ old('image') }}>
+                                                <label class="custom-file-label" for="image" aria-describedby="image">Choose
+                                                    file</label>
+                                                @error('image')
+                                                    <div class="invalid-feedback position-absolute"
+                                                        style="top: 35px; z-index: 1;">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">

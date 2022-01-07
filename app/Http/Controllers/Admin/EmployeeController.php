@@ -81,6 +81,7 @@ class EmployeeController extends Controller
             'gender' => 'required',
             'name' => 'required|max:100|min:2',
             'nik' => 'required|max:16|min:16|unique:employees,nik',
+            'image' => 'image'
         ]);
 
         $employee = new Employee();
@@ -90,6 +91,11 @@ class EmployeeController extends Controller
         $employee->nik          = trim($request->nik);
         $employee->address      = trim($request->address);
         $employee->active       = $request->active == 'on' ? true : false;
+
+        if ($request->hasFile('image')) {
+            $employee->image    = $request->file('image')->store('public/images/profile');
+        }
+
         $employee->save();
         return redirect('admin/employee')->with('success', 'Data berhasil ditambahkan');
     }
@@ -142,6 +148,12 @@ class EmployeeController extends Controller
         $employee->nik          = trim($request->nik);
         $employee->address      = trim($request->address);
         $employee->active       = $request->active == 'on' ? true : false;
+
+        if ($request->hasFile('image')) {
+            \Illuminate\Support\Facades\Storage::delete($employee->image);
+            $employee->image    = $request->file('image')->store('public/images/profile');
+        }
+
         $employee->save();
         return redirect('admin/employee')->with('success', 'Data berhasil diupdate');
     }
