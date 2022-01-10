@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AttendaceController;
+use App\Http\Controllers\LandingPageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,17 +16,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome', ['ishome' => true]);
+    return view('landing-page/homepage');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+Route::get('/profile', function () {
+    return view('/landing-page/profile');
+});
+
+Route::get('/contact', function () {
+    return view('/landing-page/contact');
+});
+
+Route::get('/structur-organization', [LandingPageController::class, 'structurOrganization']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    })->name('dashboard')->middleware('admin');
 
     Route::resource('/attendance', AttendaceController::class)->only(['index', 'store'])->middleware('isSetWorkHour');
 });

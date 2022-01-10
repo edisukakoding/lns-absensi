@@ -28,10 +28,15 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+
         $request->authenticate();
 
         $request->session()->regenerate();
 
+        $user = \App\Models\User::where('email', $request->email)->first();
+        if ($user->role == 'USER') {
+            return \redirect('attendance');
+        }
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

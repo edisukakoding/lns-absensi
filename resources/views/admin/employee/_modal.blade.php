@@ -9,32 +9,45 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-hover">
-                    <tr>
-                        <th>Nama</th>
-                        <td>{{ $employee->name }}</td>
-                    </tr>
-                    <tr>
-                        <th>NIK</th>
-                        <td>{{ $employee->nik }}</td>
-                    </tr>
-                    <tr>
-                        <th>Jabatan</th>
-                        <td>{{ $employee->position->name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Jenis Kelamin</th>
-                        <td>{{ $employee->gender }}</td>
-                    </tr>
-                    <tr>
-                        <th>Masih Bekerja</th>
-                        <td><span class="fas {{ $employee->active ? 'fa-check text-success' : 'fa-times text-danger' }}"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Alamat</th>
-                        <td>{!! $employee->address !!}</td>
-                    </tr>
-                </table>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        {{-- {{ dd(\Illuminate\Support\Facades\Storage::url($employee->image)) }} --}}
+                        <div class="card">
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($employee->image) }}"
+                                class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Nama</th>
+                                <td>{{ $employee->name }}</td>
+                            </tr>
+                            <tr>
+                                <th>NIK</th>
+                                <td>{{ $employee->nik }}</td>
+                            </tr>
+                            <tr>
+                                <th>Jabatan</th>
+                                <td>{{ $employee->position->name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Jenis Kelamin</th>
+                                <td>{{ $employee->gender }}</td>
+                            </tr>
+                            <tr>
+                                <th>Masih Bekerja</th>
+                                <td><span
+                                        class="fas {{ $employee->active ? 'fa-check text-success' : 'fa-times text-danger' }}"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Alamat</th>
+                                <td>{!! $employee->address !!}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>

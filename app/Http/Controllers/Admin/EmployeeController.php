@@ -150,7 +150,9 @@ class EmployeeController extends Controller
         $employee->active       = $request->active == 'on' ? true : false;
 
         if ($request->hasFile('image')) {
-            \Illuminate\Support\Facades\Storage::delete($employee->image);
+            if ($employee->image !== 'public/images/profile/default.jpg') {
+                \Illuminate\Support\Facades\Storage::delete($employee->image);
+            }
             $employee->image    = $request->file('image')->store('public/images/profile');
         }
 

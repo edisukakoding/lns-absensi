@@ -4,7 +4,7 @@
     <!-- Container Fluid-->
     <div class="container-fluid" id="container-wrapper">
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <h1 class="h3 mb-0 text-gray-800">{{ Auth::user()->isAdmin() }}</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="./">Home</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -310,13 +310,13 @@
             </div>
         </div>
 
-        
+
 
     </div>
     <!---Container Fluid-->
 @endsection
 
 @push('scripts')
-<script src="{{ asset('ruang-admin/') }}/vendor/chart.js/Chart.min.js"></script>
-<script src="{{ asset('ruang-admin/') }}/js/demo/chart-area-demo.js"></script>
+    <script src="{{ asset('ruang-admin/') }}/vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('ruang-admin/') }}/js/demo/chart-area-demo.js"></script>
 @endpush
