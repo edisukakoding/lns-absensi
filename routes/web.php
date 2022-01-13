@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing-page/homepage');
-});
+Route::get('/', [LandingPageController::class, 'homepage']);
 
 Route::get('/profile', function () {
     return view('/landing-page/profile');

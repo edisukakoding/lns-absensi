@@ -42,22 +42,23 @@
                         <div class="section-title">
                             <h2>Misi</h2>
                             <div class="row content justify-content-center">
-                                <div class="col-md-12 pt-4" data-aos="fade-left"
-                                    style="text-align: left; margin-left: 140px">
-                                    <ul>
-                                        <li><i class="bi bi-check"></i> Bersama masyarakat memperkuat kelembagaan desa
-                                            yang ada sehingga dapat melayani masyarakat secara optimal
-                                        </li>
-                                        <li><i class="bi bi-check"></i> Bersama masyarakat dan kelembagaan desa
-                                            menyelenggarakan pemerintahan dan melaksanakan pembangunan yang partisipatif
-                                        </li>
-                                        <li><i class="bi bi-check"></i> Bersama masyarakat dan kelembagaan desa dalam
-                                            mewujudkan Desa BUMIREJO yang aman, tentram dan damai
-                                        </li>
-                                        <li><i class="bi bi-check"></i> Bersama masyarakat dan kelembagaan desa
-                                            memberdayakan masyarakat untuk meningkatkan kesejahteraan masyarakat
-                                        </li>
-                                    </ul>
+                                <div class="col-md-12 pt-4" data-aos="fade-left">
+                                    <div>
+                                        <ul>
+                                            <li><i class="bi bi-asterisk"></i> Bersama masyarakat memperkuat kelembagaan desa
+                                                yang ada sehingga dapat melayani masyarakat secara optimal <i class="bi bi-asterisk"></i>
+                                            </li>
+                                            <li><i class="bi bi-asterisk"></i> Bersama masyarakat dan kelembagaan desa
+                                                menyelenggarakan pemerintahan dan melaksanakan pembangunan yang partisipatif <i class="bi bi-asterisk"></i>
+                                            </li>
+                                            <li><i class="bi bi-asterisk"></i> Bersama masyarakat dan kelembagaan desa dalam
+                                                mewujudkan Desa BUMIREJO yang aman, tentram dan damai <i class="bi bi-asterisk"></i>
+                                            </li>
+                                            <li><i class="bi bi-asterisk"></i> Bersama masyarakat dan kelembagaan desa
+                                                memberdayakan masyarakat untuk meningkatkan kesejahteraan masyarakat <i class="bi bi-asterisk"></i>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

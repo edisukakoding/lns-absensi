@@ -59,8 +59,34 @@
                             href="{{ url('/profile', []) }}">Profil Desa</a></li>
                     <li><a class="{{ Request::segment(1) == 'contact' ? 'active' : '' }}"
                             href="{{ url('/contact', []) }}">Kontak</a></li>
+                    @auth
+                        <li class="dropdown">
+                            <a href="#">
 
-                    <li><a class="getstarted" href="{{ route('login') }}">Login</a></li>
+                                <span class="ml-2 d-none d-lg-inline small">{{ Auth::user()->employee->name }}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{{ Storage::url(Auth::user()->employee->image) }}" style="max-width: 40px">
+                            </a>
+                            <ul>
+                                <li><a href="{{ url('/dashboard', []) }}">Dashboard</a></li>
+                                @if (Auth::user()->isAdmin())
+                                    <li><a href="{{ route('workhours.index') }}">Settings</a></li>
+                                @endif
+                                <li>
+                                    <form class="d-none" action="{{ route('logout') }}" method="POST"
+                                        id="form-logout">
+                                        @csrf
+                                    </form>
+                                    <a href="javascript:void(0)" id="logout">
+                                        Logout
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endauth
+                    @guest
+                        <li><a class="getstarted" href="{{ route('login') }}">Login</a></li>
+                    @endguest
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -156,8 +182,17 @@
 
     <!-- Template Main JS File -->
     <script src="{{ asset('serenity') }}/assets/js/main.js"></script>
-
     @stack('scripts')
+    @auth
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const logout = document.getElementById('logout');
+            logout.addEventListener('click', () => {
+                document.getElementById('form-logout').submit();
+            })
+        })
+    </script>
+    @endauth
 </body>
 
 </html>

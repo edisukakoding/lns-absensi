@@ -6,7 +6,7 @@
         <div class="hero-container" data-aos="fade-up">
             <h1>Desa Bumirejo</h1>
             <h2>KEBERSAMAAN DALAM MEMBANGUN DEMI DESA BUMIREJO YANG LEBIH MAJU DAN MAKMUR</h2>
-            <a href="#about" class="btn-get-started scrollto">PROFIL</a>
+            <a href="{{ url('/profile', []) }}" class="btn-get-started scrollto">PROFIL</a>
         </div>
     </section>
     <!-- End Hero -->
@@ -100,6 +100,7 @@
             </div>
         </section><!-- End About Section -->
 
+        @if ($structure->count() > 0)
         <!-- ======= Services Section ======= -->
         <section id="services" class="services ">
             <div class="container">
@@ -169,120 +170,123 @@
 
             </div>
         </section><!-- End Services Section -->
+        @endif
 
     </main>
     <!-- End #main -->
 @endsection
 
-@push('styles')
-    <style>
-        .boc-search {
-            width: 100%;
-            right: 0 !important;
-        }
+@if ($structure->count() > 0)
+    @push('styles')
+        <style>
+            .boc-search {
+                width: 100%;
+                right: 0 !important;
+            }
 
-        #struktur-aparat-desa {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
+            #struktur-aparat-desa {
+                width: 100%;
+                height: 100%;
+                position: relative;
+            }
 
-    </style>
-@endpush
+        </style>
+    @endpush
 
-@push('scripts')
-    <script src="{{ asset('js/orgchart.js') }}"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            OrgChart.templates.isla = Object.assign({}, OrgChart.templates.ana);
-            OrgChart.templates.isla.defs =
-                '<filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="isla-shadow">' +
-                '<feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1" />' +
-                '<feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1" />' +
-                '<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1" />' +
-                '<feMerge><feMergeNode in="shadowMatrixOuter1" /><feMergeNode in="SourceGraphic" /></feMerge>' +
-                '</filter>';
-            OrgChart.templates.isla.size = [180, 120];
-            OrgChart.templates.isla.node =
-                '<rect filter="url(#isla-shadow)" x="0" y="20" rx="7" ry="7" height="100" width="180" fill="#FFF" stroke-width="1" stroke="#94c045"></rect>' +
-                '<rect x="25" y="75" rx="10" ry="10" height="20" width="130" fill="#94c045" stroke-width="3" stroke="#94c045"></rect>' +
-                '<rect fill="#ffffff" stroke="#94c045" stroke-width="1" x="70" y="0" rx="13" ry="13" width="40" height="40"></rect>' +
-                '<circle stroke="#FFCA28" stroke-width="3" fill="none" cx="90" cy="12" r="8"></circle>' +
-                '<path d="M75,34 C75,17 105,17 105,34" stroke="#FFCA28" stroke-width="3" fill="none"></path>';
-            OrgChart.templates.isla.field_0 =
-                '<text data-width="120" style="font-size: 12px;" fill="#fff" x="90" y="90" text-anchor="middle">{val}</text>';
-            OrgChart.templates.isla.field_1 =
-                '<text data-width="160" style="font-size: 13px;" fill="#94c045" x="90" y="64" text-anchor="middle">{val}</text>';
-            OrgChart.templates.isla.img_0 =
-                '<clipPath id="{randId}">' +
-                '<rect filter="url(#isla-shadow)" fill="#ffffff" stroke="#94c045" stroke-width="1" x="70" y="0" rx="13" ry="13" width="40" height="40"></rect>' +
-                '</clipPath><image preserveAspectRatio="xMidYMid slice" clip-path="url(#{randId})" xlink:href="{val}" x="70" y="0" width="40" height="40"></image>';
-            OrgChart.templates.isla.minus =
-                '<circle cx="15" cy="15" r="15" fill="#F57C00" stroke="#F57C00" stroke-width="1"></circle>' +
-                '<line x1="8" y1="15" x2="22" y2="15" stroke-width="1" stroke="#ffffff"></line>';
-            OrgChart.templates.isla.plus =
-                '<circle cx="15" cy="15" r="15" fill="#ffffff" stroke="#94c045" stroke-width="1"></circle>' +
-                '<line x1="4" y1="15" x2="26" y2="15" stroke-width="1" stroke="#94c045"></line>' +
-                '<line x1="15" y1="4" x2="15" y2="26" stroke-width="1" stroke="#94c045"></line>';
-            OrgChart.templates.isla.nodeMenuButton =
-                '<g style="cursor:pointer;" transform="matrix(1,0,0,1,83,45)" data-ctrl-n-menu-id="{id}">' +
-                '<rect x="-4" y="-10" fill="#000000" fill-opacity="0" width="22" height="22"></rect>' +
-                '<circle cx="0" cy="0" r="2" fill="#F57C00"></circle>' +
-                '<circle cx="7" cy="0" r="2" fill="#F57C00"></circle>' +
-                '<circle cx="14" cy="0" r="2" fill="#F57C00"></circle>' +
-                '</g>';
+    @push('scripts')
+        <script src="{{ asset('js/orgchart.js') }}"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                OrgChart.templates.isla = Object.assign({}, OrgChart.templates.ana);
+                OrgChart.templates.isla.defs =
+                    '<filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="isla-shadow">' +
+                    '<feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1" />' +
+                    '<feGaussianBlur stdDeviation="10" in="shadowOffsetOuter1" result="shadowBlurOuter1" />' +
+                    '<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1" />' +
+                    '<feMerge><feMergeNode in="shadowMatrixOuter1" /><feMergeNode in="SourceGraphic" /></feMerge>' +
+                    '</filter>';
+                OrgChart.templates.isla.size = [180, 120];
+                OrgChart.templates.isla.node =
+                    '<rect filter="url(#isla-shadow)" x="0" y="20" rx="7" ry="7" height="100" width="180" fill="#FFF" stroke-width="1" stroke="#94c045"></rect>' +
+                    '<rect x="25" y="75" rx="10" ry="10" height="20" width="130" fill="#94c045" stroke-width="3" stroke="#94c045"></rect>' +
+                    '<rect fill="#ffffff" stroke="#94c045" stroke-width="1" x="70" y="0" rx="13" ry="13" width="40" height="40"></rect>' +
+                    '<circle stroke="#FFCA28" stroke-width="3" fill="none" cx="90" cy="12" r="8"></circle>' +
+                    '<path d="M75,34 C75,17 105,17 105,34" stroke="#FFCA28" stroke-width="3" fill="none"></path>';
+                OrgChart.templates.isla.field_0 =
+                    '<text data-width="120" style="font-size: 12px;" fill="#fff" x="90" y="90" text-anchor="middle">{val}</text>';
+                OrgChart.templates.isla.field_1 =
+                    '<text data-width="160" style="font-size: 13px;" fill="#94c045" x="90" y="64" text-anchor="middle">{val}</text>';
+                OrgChart.templates.isla.img_0 =
+                    '<clipPath id="{randId}">' +
+                    '<rect filter="url(#isla-shadow)" fill="#ffffff" stroke="#94c045" stroke-width="1" x="70" y="0" rx="13" ry="13" width="40" height="40"></rect>' +
+                    '</clipPath><image preserveAspectRatio="xMidYMid slice" clip-path="url(#{randId})" xlink:href="{val}" x="70" y="0" width="40" height="40"></image>';
+                OrgChart.templates.isla.minus =
+                    '<circle cx="15" cy="15" r="15" fill="#F57C00" stroke="#F57C00" stroke-width="1"></circle>' +
+                    '<line x1="8" y1="15" x2="22" y2="15" stroke-width="1" stroke="#ffffff"></line>';
+                OrgChart.templates.isla.plus =
+                    '<circle cx="15" cy="15" r="15" fill="#ffffff" stroke="#94c045" stroke-width="1"></circle>' +
+                    '<line x1="4" y1="15" x2="26" y2="15" stroke-width="1" stroke="#94c045"></line>' +
+                    '<line x1="15" y1="4" x2="15" y2="26" stroke-width="1" stroke="#94c045"></line>';
+                OrgChart.templates.isla.nodeMenuButton =
+                    '<g style="cursor:pointer;" transform="matrix(1,0,0,1,83,45)" data-ctrl-n-menu-id="{id}">' +
+                    '<rect x="-4" y="-10" fill="#000000" fill-opacity="0" width="22" height="22"></rect>' +
+                    '<circle cx="0" cy="0" r="2" fill="#F57C00"></circle>' +
+                    '<circle cx="7" cy="0" r="2" fill="#F57C00"></circle>' +
+                    '<circle cx="14" cy="0" r="2" fill="#F57C00"></circle>' +
+                    '</g>';
 
-            OrgChart.templates.isla.ripple = {
-                radius: 0,
-                color: "#F57C00",
-                rect: {
-                    x: 0,
-                    y: 20,
-                    width: 180,
-                    height: 100
-                }
-            };
-            OrgChart.templates.isla.editFormHeaderColor = '#94c045';
-            OrgChart.SEARCH_PLACEHOLDER = "Cari Aparat Desa";
-            var chart = new OrgChart(document.getElementById("struktur-aparat-desa"), {
-                template: "isla",
-                scaleInitial: 1,
-                mouseScrool: OrgChart.action.none,
-                nodeBinding: {
-                    field_0: "name",
-                    field_1: 'position'
-                },
-                nodes: await fetch(`{{ url('/structur-organization') }}`).then(res => res.json())
-                    .then(data => data.map((row => {
-                        console.log(row);
-                        let result = {};
-                        result = {
-                            ...result,
-                            id: row.employee.id,
-                            name: row.employee.name,
-                            position: row.employee.position.name,
-                            image: row.employee.image.replace('public', 'storage')
-                        }
-                        result = row.boss ? {
-                            ...result,
-                            pid: row.boss.id
-                        } : result;
-                        return result;
-                    }))),
-                editForm: {
-                    titleBinding: "name",
-                    photoBinding: "image",
-                    buttons: {
-                        edit: null,
-                        share: {
-                            icon: OrgChart.icon.share(24, 24, '#fff'),
-                            text: 'Share'
-                        },
-                        pdf: null,
-                        remove: null
+                OrgChart.templates.isla.ripple = {
+                    radius: 0,
+                    color: "#F57C00",
+                    rect: {
+                        x: 0,
+                        y: 20,
+                        width: 180,
+                        height: 100
+                    }
+                };
+                OrgChart.templates.isla.editFormHeaderColor = '#94c045';
+                OrgChart.SEARCH_PLACEHOLDER = "Cari Aparat Desa";
+                var chart = new OrgChart(document.getElementById("struktur-aparat-desa"), {
+                    template: "isla",
+                    scaleInitial: 1,
+                    mouseScrool: OrgChart.action.none,
+                    nodeBinding: {
+                        field_0: "name",
+                        field_1: 'position'
                     },
-                }
-            });
-        })
-    </script>
-@endpush
+                    nodes: await fetch(`{{ url('/structur-organization') }}`).then(res => res.json())
+                        .then(data => data.map((row => {
+                            console.log(row);
+                            let result = {};
+                            result = {
+                                ...result,
+                                id: row.employee.id,
+                                name: row.employee.name,
+                                position: row.employee.position.name,
+                                image: row.employee.image.replace('public', 'storage')
+                            }
+                            result = row.boss ? {
+                                ...result,
+                                pid: row.boss.id
+                            } : result;
+                            return result;
+                        }))),
+                    editForm: {
+                        titleBinding: "name",
+                        photoBinding: "image",
+                        buttons: {
+                            edit: null,
+                            share: {
+                                icon: OrgChart.icon.share(24, 24, '#fff'),
+                                text: 'Share'
+                            },
+                            pdf: null,
+                            remove: null
+                        },
+                    }
+                });
+            })
+        </script>
+    @endpush
+@endif
