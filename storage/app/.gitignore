@@ -1,0 +1,4 @@
+*
+!public/images/profile/default.jpg
+!public/images/company/*
+!.gitignore

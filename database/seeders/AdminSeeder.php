@@ -15,14 +15,29 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
+        $position = \App\Models\Position::create([
+            'name'              => 'Administrator System',
+            'active'            => true
+        ]);
+        
+        $employee = \App\Models\Employee::create([
+            'position_id'       => $position->id,
+            'nik'               => '12345678890123456',
+            'name'              => 'Administrator',
+            'address'           => 'Unamed Road',
+            'gender'            => 'Pria',
+            'image'             => 'public/images/profile/default.jpg',
+            'active'            => true
+        ]);
+
         \App\Models\User::create([
-            'employee_id' => \App\Models\Employee::inRandomOrder()->first()->id,
-            'username' => 'admin',
-            'email' => 'admin@gmail.com',
-            'role' => 'ADMIN',
+            'employee_id'       => $employee->id,
+            'username'          => 'admin',
+            'email'             => 'admin@gmail.com',
+            'role'              => 'ADMIN',
             'email_verified_at' => now(),
-            'password' => Hash::make('asdasdasd'),
-            'remember_token' => Str::random(10),
+            'password'          => Hash::make('asdasdasd'),
+            'remember_token'    => Str::random(10),
         ]);
     }
 }
