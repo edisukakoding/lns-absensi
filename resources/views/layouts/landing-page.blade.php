@@ -44,12 +44,12 @@
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center justify-content-between">
 
-            <div class="logo">
+            {{-- <div class="logo"> --}}
                 {{-- <h1 class="text-light"><a href="index.html">Bumirejo</a></h1> --}}
                 <!-- Uncomment below if you prefer to use an image logo -->
-                <a href="{{ url('/') }}"><img src="{{ url('storage/images/company/logo.png') }}" alt=""
-                        class="img-fluid"></a>
-            </div>
+                {{-- <a href="{{ url('/') }}"><img src="{{ url('storage/images/company/logo.png') }}" alt=""
+                        class="img-fluid"></a> --}}
+            {{-- </div> --}}
 
             <nav id="navbar" class="navbar">
                 <ul>
@@ -59,13 +59,19 @@
                             href="{{ url('/profile', []) }}">Profil Desa</a></li>
                     <li><a class="{{ Request::segment(1) == 'contact' ? 'active' : '' }}"
                             href="{{ url('/contact', []) }}">Kontak</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <!-- .navbar -->
+            <div class="logo navbar">
+                <ul>
                     @auth
                         <li class="dropdown">
                             <a href="#">
 
-                                <span class="ml-2 d-none d-lg-inline small">{{ Auth::user()->employee->name }}</span>
                                 <img class="img-profile rounded-circle"
-                                    src="{{ Storage::url(Auth::user()->employee->image) }}" style="max-width: 40px">
+                                    src="{{ Storage::url(Auth::user()->employee->image) }}" style="max-width: 35px">
+                                <span class="ml-2 d-none d-lg-inline small" style="margin-left: 10px"> {{ Auth::user()->employee->name }}</span>
                             </a>
                             <ul>
                                 <li><a href="{{ url('/dashboard', []) }}">Dashboard</a></li>
@@ -88,9 +94,7 @@
                         <li><a class="getstarted" href="{{ route('login') }}">Login</a></li>
                     @endguest
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-
+            </div>
         </div>
     </header><!-- End Header -->
 

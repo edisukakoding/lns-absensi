@@ -35,7 +35,7 @@
                                         <p class="card-text text-center" id="jam"></p>
                                         <button class="btn btn-block {{ $last_absen ? 'btn-danger' : 'btn-warning' }}"
                                             id="btn-absen"
-                                            {{ time() <= strtotime($work_hours->break) ? 'disabled' : '' }}>{{ $last_absen ? 'Checkout' : 'Checkin' }}</button>
+                                            {{ time() <= strtotime($work_hours->break) && $last_absen ? 'disabled' : '' }}>{{ $last_absen ? 'Checkout' : 'Checkin' }}</button>
                                     </div>
                                 </div>
                             </div>
