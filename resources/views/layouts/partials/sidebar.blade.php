@@ -22,12 +22,12 @@
     </div> --}}
     @if (Auth::user()->isAdmin())
         <li class="nav-item {{ in_array(Request::segment(2), ['position', 'employee']) ? 'active' : '' }}">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
-                aria-expanded="true" aria-controls="collapseBootstrap">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-kepegawaiian"
+                aria-expanded="true" aria-controls="collapse-kepegawaiian">
                 <i class="fas fa-fw fa-user-tie"></i>
                 <span>Kepegawaian</span>
             </a>
-            <div id="collapseBootstrap"
+            <div id="collapse-kepegawaiian"
                 class="collapse {{ in_array(Request::segment(2), ['position', 'employee']) ? 'show' : '' }}"
                 aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -36,6 +36,22 @@
                         href="{{ route('position.index', []) }}">Jabatan</a>
                     <a class="collapse-item {{ Request::segment(2) == 'employee' ? 'active' : '' }}"
                         href="{{ route('employee.index', []) }}">Pegawai</a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item {{ in_array(Request::segment(2), ['population']) ? 'active' : '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-kelurahan"
+                aria-expanded="true" aria-controls="collapse-kelurahan">
+                <i class="fas fa-fw fa-building"></i>
+                <span>Kelurahan</span>
+            </a>
+            <div id="collapse-kelurahan"
+                class="collapse {{ in_array(Request::segment(2), ['population']) ? 'show' : '' }}"
+                aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Kelurahan</h6>
+                    <a class="collapse-item {{ Request::segment(2) == 'population' ? 'active' : '' }}"
+                        href="{{ route('population.index', []) }}">Jumlah Penduduk</a>
                 </div>
             </div>
         </li>

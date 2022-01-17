@@ -18,8 +18,9 @@
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Pegawai</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Models\Employee::count() }}</div>
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Pegawai</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Models\Employee::count() }}
+                                </div>
                                 {{-- <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                                     <span>Since last month</span>
@@ -38,7 +39,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Pengguna</div>
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Pengguna</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{ \App\Models\User::count() }}</div>
                                 {{-- <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
@@ -58,8 +59,14 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Terlambat</div>
-                                {{-- <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ \App\ }}</div> --}}
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Terlambat ( Hari ini )
+                                    {{-- {{ dd(\App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in) }} --}}
+                                </div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                    {{ $checkin_limit = \App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in
+                                        ? \App\Models\Attendance::where('attendance_date', now())->where('checkin_time', '>=', $checkin_limit)->count()
+                                        : 0 }}
+                                </div>
                                 {{-- <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
                                     <span>Since last month</span>
@@ -74,19 +81,20 @@
             </div>
             <!-- Pending Requests Card Example -->
             <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100">
+                <div class="card">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Pending Requests</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                <div class="mt-2 mb-0 text-muted text-xs">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Penduduk</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    {{ \App\Models\Population::orderBy('year', 'DESC')->first()->total || 0 }}</div>
+                                {{-- <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
                                     <span>Since yesterday</span>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-warning"></i>
+                                <i class="fas fa-address-card fa-2x text-warning"></i>
                             </div>
                         </div>
                     </div>
@@ -97,21 +105,7 @@
             <div class="col-xl-8 col-lg-7">
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Monthly Recap Report</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Dropdown Header:</div>
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </div>
-                        </div>
+                        <h6 class="m-0 font-weight-bold text-primary">Jumlah Penduduk / Tahun</h6>
                     </div>
                     <div class="card-body">
                         <div class="chart-area">
@@ -122,143 +116,9 @@
             </div>
             <!-- Pie Chart -->
             <div class="col-xl-4 col-lg-5">
-                <div class="card mb-4">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Products Sold</h6>
-                        <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle btn btn-primary btn-sm" href="#" role="button" id="dropdownMenuLink"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Month <i class="fas fa-chevron-down"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                aria-labelledby="dropdownMenuLink">
-                                <div class="dropdown-header">Select Periode</div>
-                                <a class="dropdown-item" href="#">Today</a>
-                                <a class="dropdown-item" href="#">Week</a>
-                                <a class="dropdown-item active" href="#">Month</a>
-                                <a class="dropdown-item" href="#">This Year</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <div class="small text-gray-500">Oblong T-Shirt
-                                <div class="small float-right"><b>600 of 800 Items</b></div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 80%"
-                                    aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="small text-gray-500">Gundam 90'Editions
-                                <div class="small float-right"><b>500 of 800 Items</b></div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 70%"
-                                    aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="small text-gray-500">Rounded Hat
-                                <div class="small float-right"><b>455 of 800 Items</b></div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="small text-gray-500">Indomie Goreng
-                                <div class="small float-right"><b>400 of 800 Items</b></div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="small text-gray-500">Remote Control Car Racing
-                                <div class="small float-right"><b>200 of 800 Items</b></div>
-                            </div>
-                            <div class="progress" style="height: 12px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 30%"
-                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer text-center">
-                        <a class="m-0 small text-primary card-link" href="#">View More <i
-                                class="fas fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- Invoice Example -->
-            <div class="col-xl-8 col-lg-7 mb-4">
-                <div class="card">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Invoice</h6>
-                        <a class="m-0 float-right btn btn-danger btn-sm" href="#">View More <i
-                                class="fas fa-chevron-right"></i></a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Customer</th>
-                                    <th>Item</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><a href="#">RA0449</a></td>
-                                    <td>Udin Wayang</td>
-                                    <td>Nasi Padang</td>
-                                    <td><span class="badge badge-success">Delivered</span></td>
-                                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">RA5324</a></td>
-                                    <td>Jaenab Bajigur</td>
-                                    <td>Gundam 90' Edition</td>
-                                    <td><span class="badge badge-warning">Shipping</span></td>
-                                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">RA8568</a></td>
-                                    <td>Rivat Mahesa</td>
-                                    <td>Oblong T-Shirt</td>
-                                    <td><span class="badge badge-danger">Pending</span></td>
-                                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">RA1453</a></td>
-                                    <td>Indri Junanda</td>
-                                    <td>Hat Rounded</td>
-                                    <td><span class="badge badge-info">Processing</span></td>
-                                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#">RA1998</a></td>
-                                    <td>Udin Cilok</td>
-                                    <td>Baby Powder</td>
-                                    <td><span class="badge badge-success">Delivered</span></td>
-                                    <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer"></div>
-                </div>
-            </div>
-            <!-- Message From Customer-->
-            <div class="col-xl-4 col-lg-5 ">
                 <div class="card">
                     <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-light">Message From Customer</h6>
+                        <h6 class="m-0 font-weight-bold text-light">Pegawai Terlambat</h6>
                     </div>
                     <div>
                         <div class="customer-message align-items-center">
@@ -301,22 +161,117 @@
             </div>
         </div>
         <!--Row-->
-
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <p>Do you like this template ? you can download from <a href="https://github.com/indrijunanda/RuangAdmin"
-                        class="btn btn-primary btn-sm" target="_blank"><i class="fab fa-fw fa-github"></i>&nbsp;GitHub</a>
-                </p>
-            </div>
-        </div>
-
-
-
     </div>
     <!---Container Fluid-->
 @endsection
 
 @push('scripts')
     <script src="{{ asset('ruang-admin/') }}/vendor/chart.js/Chart.min.js"></script>
-    <script src="{{ asset('ruang-admin/') }}/js/demo/chart-area-demo.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Set new default font family and font color to mimic Bootstrap's default styling
+            Chart.defaults.global.defaultFontFamily = 'Nunito',
+                '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+            Chart.defaults.global.defaultFontColor = '#858796';
+
+            function jiwa(value) {
+                return `${value} jiwa`;
+            }
+
+            // Area Chart Example
+            var ctx = document.getElementById("myAreaChart");
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: await fetch(`{{ route('population.api') }}`).then(res => res
+                        .json()).then(
+                        res => res.map(row => row.year)),
+                    datasets: [{
+                        label: "Jumlah Penduduk",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(78, 115, 223, 0.5)",
+                        borderColor: "rgba(78, 115, 223, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: await fetch(`{{ route('population.api') }}`).then(res => res
+                            .json()).then(
+                            res => res.map(row => row.total)),
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: {
+                            left: 10,
+                            right: 25,
+                            top: 25,
+                            bottom: 0
+                        }
+                    },
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'date'
+                            },
+                            gridLines: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 7
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                maxTicksLimit: 5,
+                                padding: 10,
+                                // Include a dollar sign in the ticks
+                                // callback: function(value) {
+                                //     return jiwa(value)
+                                // }
+                            },
+                            gridLines: {
+                                color: "rgb(234, 236, 244)",
+                                zeroLineColor: "rgb(234, 236, 244)",
+                                drawBorder: false,
+                                borderDash: [2],
+                                zeroLineBorderDash: [2]
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        titleMarginBottom: 10,
+                        titleFontColor: '#6e707e',
+                        titleFontSize: 14,
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        intersect: false,
+                        mode: 'index',
+                        caretPadding: 10,
+                        callbacks: {
+                            label: function(tooltipItem, chart) {
+                                var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label ||
+                                    '';
+                                return datasetLabel + ': ' + jiwa(tooltipItem.yLabel);
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 @endpush
