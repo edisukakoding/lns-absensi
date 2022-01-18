@@ -135,7 +135,7 @@
                                     .addClass(
                                         'bg-warning text-white')
                             }
-                            return moment(data).locale('id').format('LLL');
+                            return moment(data).locale('id').format('LL');
                         }
                     },
                     {

@@ -60,12 +60,9 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Terlambat ( Hari ini )
-                                    {{-- {{ dd(\App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in) }} --}}
                                 </div>
                                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                    {{ $checkin_limit = \App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in
-                                        ? \App\Models\Attendance::where('attendance_date', now())->where('checkin_time', '>=', $checkin_limit)->count()
-                                        : 0 }}
+                                    {{ \App\Models\Attendance::where('attendance_date', date('Y-m-d', time()))->where('checkin_time', '>=', \App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in)->count() ?? 0}}
                                 </div>
                                 {{-- <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
@@ -87,7 +84,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Penduduk</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{ \App\Models\Population::orderBy('year', 'DESC')->first()->total || 0 }}</div>
+                                    {{ \App\Models\Population::orderBy('year', 'DESC')->first()?->total ?? 0 }}</div>
                                 {{-- <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
                                     <span>Since yesterday</span>
@@ -118,44 +115,24 @@
             <div class="col-xl-4 col-lg-5">
                 <div class="card">
                     <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-light">Pegawai Terlambat</h6>
+                        <h6 class="m-0 font-weight-bold text-white">Pegawai Terlambat</h6>
                     </div>
                     <div>
+                        @foreach (\App\Models\Attendance::with('employee')->where('attendance_date', date('Y-m-d', time()))->where('checkin_time', '>=', \App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in)->get() as $attendance)
                         <div class="customer-message align-items-center">
                             <a class="font-weight-bold" href="#">
-                                <div class="text-truncate message-title">Hi there! I am wondering if you can help me with a
-                                    problem I've been having.</div>
-                                <div class="small text-gray-500 message-time font-weight-bold">Udin Cilok · 58m</div>
+                                <div class="text-truncate message-title">{{ $attendance->employee->name }}</div>
+                                <div class="small text-gray-500 message-time font-weight-bold">Terlambat {{ \Carbon\Carbon::createFromTimeStamp(time() - (strtotime("08:13") - strtotime("08:00")))->diffForHumans() }}</div>
                             </a>
                         </div>
-                        <div class="customer-message align-items-center">
-                            <a href="#">
-                                <div class="text-truncate message-title">But I must explain to you how all this mistaken
-                                    idea
-                                </div>
-                                <div class="small text-gray-500 message-time">Nana Haminah · 58m</div>
-                            </a>
-                        </div>
-                        <div class="customer-message align-items-center">
-                            <a class="font-weight-bold" href="#">
-                                <div class="text-truncate message-title">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                    elit
-                                </div>
-                                <div class="small text-gray-500 message-time font-weight-bold">Jajang Cincau · 25m</div>
-                            </a>
-                        </div>
-                        <div class="customer-message align-items-center">
-                            <a class="font-weight-bold" href="#">
-                                <div class="text-truncate message-title">At vero eos et accusamus et iusto odio dignissimos
-                                    ducimus qui blanditiis
-                                </div>
-                                <div class="small text-gray-500 message-time font-weight-bold">Udin Wayang · 54m</div>
-                            </a>
-                        </div>
+                        @if ($loop->last)
                         <div class="card-footer text-center">
-                            <a class="m-0 small text-primary card-link" href="#">View More <i
+                            <a class="m-0 small text-primary card-link" href="{{ route('employee.index')}}">View More <i
                                     class="fas fa-chevron-right"></i></a>
                         </div>
+                            
+                        @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
