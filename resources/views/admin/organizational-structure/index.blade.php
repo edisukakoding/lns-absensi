@@ -24,10 +24,10 @@
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Struktur Organisasi</h6>
-                        <a href="{{ route('structurorganization.create') }}" class="btn btn-primary">Tambah Struktur</a>
+                        <a href="{{ route('organizationalstructure.create') }}" class="btn btn-primary">Tambah Struktur</a>
                     </div>
                     <div class="table-responsive p-3">
-                        <table class="table align-items-center table-flush table-hover" id="structurorganization-table"
+                        <table class="table align-items-center table-flush table-hover" id="organizationalstructure-table"
                             style="width: 100%">
                             <thead class="thead-light">
                                 <tr>
@@ -66,11 +66,11 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function() {
-            let table = $('#structurorganization-table').DataTable({
+            let table = $('#organizationalstructure-table').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: `{{ route('structurorganization.index') }}`,
+                ajax: `{{ route('organizationalstructure.index') }}`,
                 columns: [{
                         data: 'id',
                         name: 'id'
@@ -110,7 +110,7 @@
                         let id = $(e.target).data('id');
                         if (result.isConfirmed) {
                             $.ajax({
-                                url: `{{ url('admin/structurorganization') }}/${id}`,
+                                url: `{{ url('admin/organizationalstructure') }}/${id}`,
                                 method: 'DELETE',
                                 data: {
                                     id: id,

@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ url('storage/images/company/logo.png') }}" rel="icon">
+    <link href="{{ Storage::url('public/images/company/logo.png') }}" rel="icon">
     <link href="{{ asset('serenity') }}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->

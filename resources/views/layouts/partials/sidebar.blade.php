@@ -46,12 +46,14 @@
                 <span>Kelurahan</span>
             </a>
             <div id="collapse-kelurahan"
-                class="collapse {{ in_array(Request::segment(2), ['population']) ? 'show' : '' }}"
+                class="collapse {{ in_array(Request::segment(2), ['population', 'organizationalstructure']) ? 'show' : '' }}"
                 aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Kelurahan</h6>
                     <a class="collapse-item {{ Request::segment(2) == 'population' ? 'active' : '' }}"
                         href="{{ route('population.index', []) }}">Jumlah Penduduk</a>
+                    <a class="collapse-item {{ Request::segment(2) == 'organizationalstructure' ? 'active' : '' }}"
+                    href="{{ route('organizationalstructure.index', []) }}">Struktur Organisasi</a>
                 </div>
             </div>
         </li>

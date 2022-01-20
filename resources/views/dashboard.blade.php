@@ -62,7 +62,11 @@
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Terlambat ( Hari ini )
                                 </div>
                                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                                    {{ \App\Models\Attendance::where('attendance_date', date('Y-m-d', time()))->where('checkin_time', '>=', \App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in)->count() ?? 0}}
+                                    @php
+                                        $workhour   = \App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in;
+                                        $terlambat  = $workhour ? \App\Models\Attendance::where('attendance_date', date('Y-m-d', time()))->where('checkin_time', '>=', $workhour)->count() : 0;
+                                        echo $terlambat;
+                                    @endphp
                                 </div>
                                 {{-- <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
@@ -82,9 +86,14 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Penduduk</div>
+                                @php
+                                    $people     = \App\Models\Population::orderBy('year', 'DESC')->first();
+                                    $population = $people?->total ?? 0;
+                                @endphp
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Penduduk ({{ $people->year }})</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                    {{ \App\Models\Population::orderBy('year', 'DESC')->first()?->total ?? 0 }}</div>
+                                    {{ $population }}
+                                </div>
                                 {{-- <div class="mt-2 mb-0 text-muted text-xs">
                                     <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
                                     <span>Since yesterday</span>
@@ -98,8 +107,9 @@
                 </div>
             </div>
 
+            @if ($population > 0)
             <!-- Area Chart -->
-            <div class="col-xl-8 col-lg-7">
+            <div class="col-xl-{{ $terlambat > 0 ? '8' : '12' }} col-lg-{{ $terlambat > 0 ? '7' : '12' }}">
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Jumlah Penduduk / Tahun</h6>
@@ -111,39 +121,44 @@
                     </div>
                 </div>
             </div>
+            @endif
+            @if ($terlambat > 0)
             <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
+            <div class="col-xl-{{ $population > 0 ? '4' : '12' }} col-lg-{{ $population > 0 ? '5' : '12' }}">
                 <div class="card">
                     <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-white">Pegawai Terlambat</h6>
                     </div>
                     <div>
-                        @foreach (\App\Models\Attendance::with('employee')->where('attendance_date', date('Y-m-d', time()))->where('checkin_time', '>=', \App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in)->get() as $attendance)
+                        @foreach (\App\Models\Attendance::with('employee')->where('attendance_date', date('Y-m-d', time()))->where('checkin_time', '>=', \App\Models\WorkHour::where('status', 'ACTIVE')->first()?->in)->limit(5)->get() as $attendance)
                         <div class="customer-message align-items-center">
-                            <a class="font-weight-bold" href="#">
-                                <div class="text-truncate message-title">{{ $attendance->employee->name }}</div>
-                                <div class="small text-gray-500 message-time font-weight-bold">Terlambat {{ \Carbon\Carbon::createFromTimeStamp(time() - (strtotime("08:13") - strtotime("08:00")))->diffForHumans() }}</div>
+                            <a class="font-weight-bold" href="javascript:void(0)">
+                                <div class="text-truncate message-title btn-show" data-id="{{$attendance->employee_id}}">{{ $attendance->employee->name }}</div>
+                                <div class="small text-gray-500 message-time font-weight-bold btn-show" data-id="{{$attendance->employee_id}}">Terlambat {{ \Carbon\Carbon::createFromTimeStamp(time() - (strtotime($attendance->checkin_time) - strtotime($attendance->checkin_limit)))->diffForHumans($other = null, $absolute = true, $short = false) }}</div>
                             </a>
                         </div>
                         @if ($loop->last)
-                        <div class="card-footer text-center">
-                            <a class="m-0 small text-primary card-link" href="{{ route('employee.index')}}">View More <i
-                                    class="fas fa-chevron-right"></i></a>
-                        </div>
+                            <div class="card-footer text-center">
+                                <a class="m-0 small text-primary card-link" href="{{ route('employee.index')}}">View More <i
+                                        class="fas fa-chevron-right"></i></a>
+                            </div>
                             
                         @endif
                         @endforeach
                     </div>
                 </div>
             </div>
+            @endif
         </div>
         <!--Row-->
+        <div id="modal-employee-wrapper"></div>
     </div>
     <!---Container Fluid-->
 @endsection
 
 @push('scripts')
     <script src="{{ asset('ruang-admin/') }}/vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('ruang-admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Set new default font family and font color to mimic Bootstrap's default styling
@@ -249,6 +264,14 @@
                     }
                 }
             });
+        });
+
+        $(document).on('click', function(e) {
+            if ($(e.target).hasClass('btn-show')) {
+                let id = $(e.target).data('id');
+                $("#modal-employee-wrapper").load(`{{ url('admin/employee') }}/${id}`);
+                
+            }
         });
     </script>
 @endpush

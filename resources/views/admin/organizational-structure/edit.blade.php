@@ -7,9 +7,9 @@
             <h1 class="h3 mb-0 text-gray-800">Struktur Organisasi</h1>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard', []) }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('structurorganization.index', []) }}">Struktur Organisasi</a>
+                <li class="breadcrumb-item"><a href="{{ route('organizationalstructure.index', []) }}">Struktur Organisasi</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
             </ol>
         </div>
 
@@ -19,12 +19,14 @@
             <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Tambah Struktur Organisasi</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Edit Struktur Organisasi</h6>
                     </div>
                     <div class="card-body">
                         <!-- Horizontal Form -->
-                        <form action="{{ route('structurorganization.store') }}" method="POST">
+                        <form action="{{ route('organizationalstructure.update', $organizationalstructure->id) }}"
+                            method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="form-group row">
                                 <label for="employee" class="col-sm-3 col-form-label">Pegawai</label>
                                 <div class="col-sm-9">
@@ -33,7 +35,7 @@
                                         <option value="">- Pilih Pegawai -</option>
                                         @foreach ($employees as $employee)
                                             <option value="{{ $employee->id }}"
-                                                {{ old('employee') == $employee->id ? 'selected' : '' }}>
+                                                {{ old('employee', $organizationalstructure->employee) == $employee->id ? 'selected' : '' }}>
                                                 {{ $employee->name }}</option>
                                         @endforeach
                                     </select>
@@ -51,7 +53,7 @@
                                         <option value="">- Pilih Atasan -</option>
                                         @foreach ($employees as $employee)
                                             <option value="{{ $employee->id }}"
-                                                {{ old('employee') == $employee->id ? 'selected' : '' }}>
+                                                {{ old('employee', $organizationalstructure->boss) == $employee->id ? 'selected' : '' }}>
                                                 {{ $employee->position->name . ' - ' . $employee->name }}</option>
                                         @endforeach
                                     </select>
@@ -64,7 +66,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Tambah</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                         </form>

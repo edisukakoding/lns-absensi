@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\StructurOrganization;
+use App\Models\OrganizationalStructure;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class StructurOrganizationController extends Controller
+class OrganizationalStructureController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,13 +17,13 @@ class StructurOrganizationController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $structur   = StructurOrganization::with(['employee.position', 'boss.position'])->get();
-            return DataTables::of($structur)
+            $organizationalstructure   = OrganizationalStructure::with(['employee.position', 'boss.position'])->get();
+            return DataTables::of($organizationalstructure)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = "
                 <a 
-                    href='" . route('structurorganization.edit', $row->id) . "' 
+                    href='" . route('organizationalstructure.edit', $row->id) . "' 
                     class='btn btn-warning btn-sm'
                     data-toggle='tooltip' 
                     data-placement='top' 
@@ -44,7 +44,7 @@ class StructurOrganizationController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('admin.structur-organization.index');
+        return view('admin.organizational-structure.index');
     }
 
     /**
@@ -55,7 +55,7 @@ class StructurOrganizationController extends Controller
     public function create()
     {
         $employees = \App\Models\Employee::all();
-        return \view('admin.structur-organization.create', \compact('employees'));
+        return \view('admin.organizational-structure.create', \compact('employees'));
     }
 
     /**
@@ -70,21 +70,21 @@ class StructurOrganizationController extends Controller
             'employee' => 'required',
         ]);
 
-        StructurOrganization::create([
+        OrganizationalStructure::create([
             'employee' => $request->employee,
             'boss' => $request->boss
         ]);
 
-        return \redirect('admin/structurorganization')->with('success', 'Struktur organisasi berhasil ditambahkan');
+        return \redirect('admin/organizationalstructure')->with('success', 'Struktur organisasi berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\StructurOrganization  $structurorganization
+     * @param  \App\Models\OrganizationalStructure  $organizationalstructure
      * @return \Illuminate\Http\Response
      */
-    public function show(StructurOrganization $structurorganization)
+    public function show(OrganizationalStructure $organizationalstructure)
     {
         //
     }
@@ -92,43 +92,43 @@ class StructurOrganizationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\StructurOrganization  $structurorganization
+     * @param  \App\Models\OrganizationalStructure  $OrganizationalStructure
      * @return \Illuminate\Http\Response
      */
-    public function edit(StructurOrganization $structurorganization)
+    public function edit(OrganizationalStructure $organizationalstructure)
     {
         $employees = \App\Models\Employee::all();
-        return \view('admin.structur-organization.edit', \compact('structurorganization', 'employees'));
+        return \view('admin.organizational-structure.edit', \compact('organizationalstructure', 'employees'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\StructurOrganization  $structurorganization
+     * @param  \App\Models\OrganizationalStructure  $organizationalstructure
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, StructurOrganization $structurorganization)
+    public function update(Request $request, OrganizationalStructure $organizationalstructure)
     {
         $request->validate([
             'employee' => 'required|numeric'
         ]);
 
-        $structurorganization->employee = $request->employee;
-        $structurorganization->boss     = $request->boss;
-        $structurorganization->save();
+        $organizationalstructure->employee = $request->employee;
+        $organizationalstructure->boss     = $request->boss;
+        $organizationalstructure->save();
 
-        return \redirect('admin/structurorganization')->with('success', 'Struktur organisasi berhasil diupdate');
+        return \redirect('admin/OrganizationalStructure')->with('success', 'Struktur organisasi berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\StructurOrganization  $structurorganization
+     * @param  \App\Models\OrganizationalStructure  $OrganizationalStructure
      * @return \Illuminate\Http\Response
      */
-    public function destroy(StructurOrganization $structurorganization)
+    public function destroy(OrganizationalStructure $organizationalstructure)
     {
-        return $structurorganization->delete();
+        return $organizationalstructure->delete();
     }
 }

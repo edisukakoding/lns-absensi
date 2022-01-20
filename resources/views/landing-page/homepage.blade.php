@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- ======= Hero Section ======= -->
-    <section id="hero">
+    <section id="hero" style="background-image: url('{{ Storage::url('public/images/company/bersama.jpg') }}')">
         <div class="hero-container" data-aos="fade-up">
             <h1>Desa Bumirejo</h1>
             <h2>KEBERSAMAAN DALAM MEMBANGUN DEMI DESA BUMIREJO YANG LEBIH MAJU DAN MAKMUR</h2>
@@ -20,11 +20,13 @@
                 <div class="row justify-content-end">
                     <div class="col-lg-11">
                         <div class="row justify-content-end">
-
+                            @php
+                                $population = \App\Models\Population::orderBy('year', 'DESC')->first();
+                            @endphp
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box py-5">
                                     <i class="bi bi-people"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="4962"
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population->total }}"
                                         class="purecounter">0</span>
                                     <p>Jiwa</p>
                                 </div>
@@ -33,7 +35,7 @@
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box py-5">
                                     <i class="bi bi-person"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="2338"
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population->man }}"
                                         class="purecounter">0</span>
                                     <p>Laki Laki</p>
                                 </div>
@@ -42,7 +44,7 @@
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box pb-5 pt-0 pt-lg-5">
                                     <i class="bi bi-person-fill"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="2544"
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population->woman }}"
                                         class="purecounter">0</span>
                                     <p>Perempuan</p>
                                 </div>
@@ -50,10 +52,10 @@
 
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box pb-5 pt-0 pt-lg-5">
-                                    <i class="bi bi-person-video2"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="2081"
+                                    <i class="bi bi-people-fill"></i>
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population->child + $population->baby }}"
                                         class="purecounter">0</span>
-                                    <p>Keluarga</p>
+                                    <p>Anak anak & Bayi</p>
                                 </div>
                             </div>
 
@@ -64,7 +66,7 @@
                 <div class="row">
 
                     <div class="col-lg-6 video-box align-self-baseline position-relative">
-                        <img src="{{ url('/storage/images/company/lurah.jpg') }}" class="img-fluid" alt=""
+                        <img src="{{ Storage::url('public/images/company/lurah.jpg') }}" class="img-fluid" alt=""
                             style="width: 100%">
                         {{-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"></a> --}}
                     </div>
@@ -255,7 +257,7 @@
                         field_0: "name",
                         field_1: 'position'
                     },
-                    nodes: await fetch(`{{ url('/structur-organization') }}`).then(res => res.json())
+                    nodes: await fetch(`{{ url('/organizationalstructure') }}`).then(res => res.json())
                         .then(data => data.map((row => {
                             console.log(row);
                             let result = {};

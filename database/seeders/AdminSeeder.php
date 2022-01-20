@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder
         
         $employee = \App\Models\Employee::create([
             'position_id'       => $position->id,
-            'nik'               => '12345678890123456',
+            'nik'               => '1234567890123456',
             'name'              => 'Administrator',
             'address'           => 'Unamed Road',
             'gender'            => 'Pria',

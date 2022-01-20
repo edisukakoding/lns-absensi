@@ -75,7 +75,7 @@
 
                 <div class="row content">
                     <div class="col-md-4" data-aos="fade-right" style="margin-top: 35px">
-                        <img src="{{ url('/storage/images/company/peta.jpg', []) }}" class="img-fluid" alt=""
+                        <img src="{{ Storage::url('public/images/company/peta.jpg', []) }}" class="img-fluid" alt=""
                             style="width: 80%">
                     </div>
                     <div class="col-md-8 pt-4" data-aos="fade-left">
@@ -107,7 +107,7 @@
 
                 <div class="row content">
                     <div class="col-md-5 order-1 order-md-2" data-aos="fade-left" style="margin-top: 90px">
-                        <img src="{{ url('/storage/images/company/ekonomi.jpg') }}" class="img-fluid" alt="">
+                        <img src="{{ Storage::url('public/images/company/ekonomi.jpg') }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-md-7 pt-5 order-2 order-md-1" data-aos="fade-right">
                         <h3>Ekonomi</h3>
@@ -131,7 +131,7 @@
 
                 <div class="row content">
                     <div class="col-md-5" data-aos="fade-right" style="margin-top: 97px">
-                        <img src="{{ url('/storage/images/company/sosial.jpg', []) }}" class="img-fluid" alt="">
+                        <img src="{{ Storage::url('public/images/company/sosial.jpg', []) }}" class="img-fluid" alt="">
                     </div>
                     <div class="col-md-7 pt-5" data-aos="fade-left">
                         <h3>Sosial Budaya</h3>
@@ -167,7 +167,7 @@
 
                 <div class="row content">
                     <div class="col-md-5 order-1 order-md-2" data-aos="fade-left" style="margin-top: 90px">
-                        <img src="{{ url('/storage/images/company/bersama.jpg') }}" class="img-fluid" alt=""
+                        <img src="{{ Storage::url('public/images/company/bersama.jpg') }}" class="img-fluid" alt=""
                             style="width: 80%">
                     </div>
                     <div class="col-md-7 pt-5 order-2 order-md-1" data-aos="fade-right">

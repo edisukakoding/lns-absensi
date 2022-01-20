@@ -13,7 +13,7 @@ class CreateStructurOrganizationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('structur_organizations', function (Blueprint $table) {
+        Schema::create('organizational_structures', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('employee')->unsigned();
             $table->bigInteger('boss')->unsigned()->nullable();
@@ -32,6 +32,6 @@ class CreateStructurOrganizationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('structur_organizations');
+        Schema::dropIfExists('organizational_structures');
     }
 }

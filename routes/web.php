@@ -25,7 +25,7 @@ Route::get('/contact', function () {
     return view('/landing-page/contact');
 });
 
-Route::get('/structur-organization', [LandingPageController::class, 'structurOrganization']);
+Route::get('/organizationalstructure', [LandingPageController::class, 'organizationalstructure']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
