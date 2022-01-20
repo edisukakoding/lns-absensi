@@ -16,17 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [LandingPageController::class, 'homepage']);
-
-Route::get('/profile', function () {
-    return view('/landing-page/profile');
-});
-
-Route::get('/contact', function () {
-    return view('/landing-page/contact');
-});
-
+Route::get('/profile', [LandingPageController::class, 'profile']);
+Route::get('/contact', [LandingPageController::class, 'contact']);
 Route::get('/organizationalstructure', [LandingPageController::class, 'organizationalstructure']);
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');

@@ -4,8 +4,8 @@
     <!-- ======= Hero Section ======= -->
     <section id="hero" style="background-image: url('{{ Storage::url('public/images/company/bersama.jpg') }}')">
         <div class="hero-container" data-aos="fade-up">
-            <h1>Desa Bumirejo</h1>
-            <h2>KEBERSAMAAN DALAM MEMBANGUN DEMI DESA BUMIREJO YANG LEBIH MAJU DAN MAKMUR</h2>
+            <h1>{{ $company->name }}</h1>
+            <h2>{{ $company->visi }}</h2>
             <a href="{{ url('/profile', []) }}" class="btn-get-started scrollto">PROFIL</a>
         </div>
     </section>
@@ -26,7 +26,7 @@
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box py-5">
                                     <i class="bi bi-people"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population->total }}"
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population?->total ?? 0 }}"
                                         class="purecounter">0</span>
                                     <p>Jiwa</p>
                                 </div>
@@ -35,7 +35,7 @@
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box py-5">
                                     <i class="bi bi-person"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population->man }}"
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population?->man ?? 0 }}"
                                         class="purecounter">0</span>
                                     <p>Laki Laki</p>
                                 </div>
@@ -44,7 +44,7 @@
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box pb-5 pt-0 pt-lg-5">
                                     <i class="bi bi-person-fill"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population->woman }}"
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population?->woman ?? 0 }}"
                                         class="purecounter">0</span>
                                     <p>Perempuan</p>
                                 </div>
@@ -53,7 +53,7 @@
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box pb-5 pt-0 pt-lg-5">
                                     <i class="bi bi-people-fill"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="{{ $population->child + $population->baby }}"
+                                    <span data-purecounter-start="0" data-purecounter-end="{{ ($population?->child + $population?->baby) ?? 0 }}"
                                         class="purecounter">0</span>
                                     <p>Anak anak & Bayi</p>
                                 </div>
@@ -66,35 +66,14 @@
                 <div class="row">
 
                     <div class="col-lg-6 video-box align-self-baseline position-relative">
-                        <img src="{{ Storage::url('public/images/company/lurah.jpg') }}" class="img-fluid" alt=""
+                        <img src="{{ Storage::url($headline->image) }}" class="img-fluid" alt="{{ $headline->title }}"
                             style="width: 100%">
                         {{-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"></a> --}}
                     </div>
 
                     <div class="col-lg-6 pt-3 pt-lg-0 content">
-                        <h3>Misi Keluarahan Bumirejo</h3>
-                        {{-- <p class="fst-italic">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore
-                            magna aliqua.
-                        </p> --}}
-                        <ul>
-                            <li><i class="bx bx-check-double"></i> Bersama masyarakat memperkuat kelembagaan desa yang ada
-                                sehingga dapat melayani masyarakat secara optimal.</li>
-                            <li><i class="bx bx-check-double"></i> Bersama masyarakat dan kelembagaan desa menyelenggarakan
-                                pemerintahan dan melaksanakan pembangunan yang partisipatif.</li>
-                            <li><i class="bx bx-check-double"></i> Bersama masyarakat dan kelembagaan desa dalam mewujudkan
-                                Desa BUMIREJO yang aman, tentram dan damai.</li>
-                            <li><i class="bx bx-check-double"></i> Bersama masyarakat dan kelembagaan desa memberdayakan
-                                masyarakat untuk meningkatkan kesejahteraan masyarakat.</li>
-                        </ul>
-                        {{-- <p>
-                            Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate
-                            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in
-                            culpa qui officia deserunt mollit anim id est laborum
-                        </p> --}}
+                        <h3>{{ $headline->title }}</h3>
+                        {!! $headline->content !!}
                     </div>
 
                 </div>

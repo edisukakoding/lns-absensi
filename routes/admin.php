@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\PositionController;
 use App\Http\Controllers\Admin\OrganizationalStructureController;
@@ -18,8 +19,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/population/{population}', [WardController::class, 'population_update'])->name('population.update');
     Route::delete('/population/{population}', [WardController::class, 'population_destroy'])->name('population.destoy');
     Route::get('/population/api', [WardController::class, 'population_api'])->name('population.api');
-
+    
     Route::prefix('setting')->group(function () {
         Route::resource('/workhours', WorkHourController::class)->except(['show']);
+        Route::get('company', [CompanyController::class, 'index'])->name('company.index');
     });
 });

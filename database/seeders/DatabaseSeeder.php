@@ -13,26 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Position::factory(5)->has(\App\Models\Employee::factory(3)->has(\App\Models\User::factory()))->create();
+        // \App\Models\Position::factory(5)->has(\App\Models\Employee::factory(3)->has(\App\Models\User::factory()))->create();
         
         $this->call([
-            AdminSeeder::class
+            AdminSeeder::class,
+            CompanySeeder::class
         ]);
-
-
-
-
-
-
-
-
-
-
-
-
-        // \App\Models\Employee::factory()->for(\App\Models\User::factory())->create();
-        // \App\Models\Position::factory(5)->create();
-        // \App\Models\Employee::factory(10)->create();
-        // \App\Models\User::factory(10)->create();
     }
 }

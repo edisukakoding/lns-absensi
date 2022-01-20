@@ -90,7 +90,7 @@
                                     $people     = \App\Models\Population::orderBy('year', 'DESC')->first();
                                     $population = $people?->total ?? 0;
                                 @endphp
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Penduduk ({{ $people->year }})</div>
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Penduduk ({{ $people?->year }})</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
                                     {{ $population }}
                                 </div>

@@ -18,9 +18,7 @@
             <div class="container">
 
                 <div>
-                    <iframe style="width: 100%;height: 300px;border: 0;"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31678.882241599742!2d110.55439086841751!3d-7.025704675207107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7093b48b461571%3A0xf726de5d46bcb901!2sBumirejo%2C%20Kec.%20Karangawen%2C%20Kabupaten%20Demak%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1641815080174!5m2!1sid!2sid"
-                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    {!! $company->map !!}
                 </div>
 
                 <div class="row mt-5">
@@ -30,23 +28,19 @@
                             <div class="address">
                                 <i class="bi bi-geo-alt"></i>
                                 <h4>Lokasi:</h4>
-                                <p>
-                                    Bumirejo
-                                    Kec. Karangawen
-                                    Kabupaten Demak
-                                    Jawa Tengah </p>
+                                <p>{{ $company->location }}</p>
                             </div>
 
                             <div class="email">
                                 <i class="bi bi-envelope"></i>
                                 <h4>Email:</h4>
-                                <p>info@example.com</p>
+                                <p>{{ $company->email }}</p>
                             </div>
 
                             <div class="phone">
                                 <i class="bi bi-phone"></i>
                                 <h4>Call:</h4>
-                                <p>+1 5589 55488 55s</p>
+                                <p>{{ $company->telephone }}</p>
                             </div>
 
                         </div>

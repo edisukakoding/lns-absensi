@@ -177,7 +177,11 @@
                         @if (Auth::user()->isAdmin())
                             <a class="dropdown-item" href="{{ route('workhours.index') }}">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
+                                Setting jam kerja
+                            </a>
+                            <a class="dropdown-item" href="{{ route('company.index') }}">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Setting Profil kelurahan
                             </a>
                         @endif
                         <div class="dropdown-divider"></div>
