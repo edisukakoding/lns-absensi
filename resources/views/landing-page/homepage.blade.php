@@ -53,7 +53,8 @@
                             <div class="col-lg-3 col-md-5 col-6 d-md-flex align-items-md-stretch">
                                 <div class="count-box pb-5 pt-0 pt-lg-5">
                                     <i class="bi bi-people-fill"></i>
-                                    <span data-purecounter-start="0" data-purecounter-end="{{ ($population?->child + $population?->baby) ?? 0 }}"
+                                    <span data-purecounter-start="0"
+                                        data-purecounter-end="{{ $population?->child + $population?->baby ?? 0 }}"
                                         class="purecounter">0</span>
                                     <p>Anak anak & Bayi</p>
                                 </div>
@@ -66,8 +67,8 @@
                 <div class="row">
 
                     <div class="col-lg-6 video-box align-self-baseline position-relative">
-                        <img src="{{ Storage::url($headline->image) }}" class="img-fluid" alt="{{ $headline->title }}"
-                            style="width: 100%">
+                        <img src="{{ Storage::url($headline->image) }}" class="img-fluid"
+                            alt="{{ $headline->title }}" style="width: 100%">
                         {{-- <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox play-btn mb-4"></a> --}}
                     </div>
 
@@ -82,15 +83,15 @@
         </section><!-- End About Section -->
 
         @if ($structure->count() > 0)
-        <!-- ======= Services Section ======= -->
-        <section id="services" class="services ">
-            <div class="container">
+            <!-- ======= Services Section ======= -->
+            <section id="services" class="services ">
+                <div class="container">
 
-                <div class="section-title pt-5" data-aos="fade-up">
-                    <h2>Aparat Desa</h2>
-                </div>
+                    <div class="section-title pt-5" data-aos="fade-up">
+                        <h2>Aparat Desa</h2>
+                    </div>
 
-                {{-- <div class="row">
+                    {{-- <div class="row">
                     <div class="col-md-6">
                         <div class="icon-box" data-aos="fade-up">
                             <div class="icon"><i class="bi bi-briefcase" style="color: #ff689b;"></i></div>
@@ -143,14 +144,14 @@
                         </div>
                     </div>
                 </div> --}}
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="struktur-aparat-desa"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="struktur-aparat-desa"></div>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-        </section><!-- End Services Section -->
+                </div>
+            </section><!-- End Services Section -->
         @endif
 
     </main>
@@ -271,3 +272,19 @@
         </script>
     @endpush
 @endif
+
+@push('scripts')
+    <script>
+        // add icon for list
+        document.addEventListener('DOMContentLoaded', () => {
+            const content   = document.querySelector('.content');
+            const ul        = content.querySelector('ul');
+            const lists     = ul.querySelectorAll('li');
+            let html        = '';
+            for(el of lists) {
+                html += `<li><i class="bx bx-check-double"></i>${el.textContent}</li>`
+            }
+            ul.innerHTML    = html;
+        })
+    </script>
+@endpush

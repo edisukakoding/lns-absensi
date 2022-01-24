@@ -183,6 +183,10 @@
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Setting Profil kelurahan
                             </a>
+                            <a class="dropdown-item" href="{{ route('companydetail.index') }}">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Setting Konten Kelurahan
+                            </a>
                         @endif
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal"

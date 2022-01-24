@@ -24,7 +24,7 @@
                         <div class="section-title">
                             <h2>VISI</h2>
                             <strong>“{{ $company->visi }}”</strong>
-                            {{ $company->visi_desc }}
+                            {!! $company->visi_desc !!}
                         </div>
                     </div>
                 </section>

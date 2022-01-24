@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CompanyController;
+use App\Http\Controllers\Admin\CompanyDetailController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\PositionController;
 use App\Http\Controllers\Admin\OrganizationalStructureController;
@@ -24,5 +25,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
         Route::resource('/workhours', WorkHourController::class)->except(['show']);
         Route::get('company', [CompanyController::class, 'index'])->name('company.index');
         Route::post('company', [CompanyController::class, 'update'])->name('company.update');
+        Route::resource('/companydetail', CompanyDetailController::class);
     });
 });

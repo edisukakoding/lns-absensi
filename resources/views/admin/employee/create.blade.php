@@ -19,7 +19,6 @@
                 <div class="card mb-4">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Tambah Pegawai</h6>
-                        @error('image') asdasdasd @enderror
                     </div>
                     <div class="card-body">
                         <!-- Horizontal Form -->

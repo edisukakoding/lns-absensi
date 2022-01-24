@@ -37,7 +37,7 @@ class CompanyController extends Controller
             $data['logo']   = $request->file('logo')->store('public/image/company');
         }
         if($request->hasFile('background')) {
-            $data['background'] = $request->file('background')->store('public/image/company');
+            $data['background'] = $request->file('background')->store('public/images/company');
         }
         \App\Models\Company::where('uid', $request->uid)->update($data);
 
