@@ -23,5 +23,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::prefix('setting')->group(function () {
         Route::resource('/workhours', WorkHourController::class)->except(['show']);
         Route::get('company', [CompanyController::class, 'index'])->name('company.index');
+        Route::post('company', [CompanyController::class, 'update'])->name('company.update');
     });
 });

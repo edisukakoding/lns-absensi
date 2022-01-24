@@ -26,7 +26,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Profil Kelurahan</h6>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('company.index') }}" method="POST">
+                        <form action="{{ route('company.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="uid">UID</label>
@@ -110,14 +110,63 @@
                             </div>
                             <div class="form-group">
                                 <label for="map">Map</label>
-                                <input type="text" class="form-control @error('map') is-invalid @enderror"
-                                    id="map" name="map" value="{{ old('map', $company->map) }}">
-                                    <small id="emailHelp" class="form-text text-muted">diambil dari google map -> share -> embeded</small>
+                                <input type="text" class="form-control @error('map') is-invalid @enderror" id="map"
+                                    name="map" value="{{ old('map', $company->map) }}">
+                                <small id="emailHelp" class="form-text text-muted">diambil dari google map -> share ->
+                                    embeded</small>
                                 @error('map')
                                     <div class="invalid-feedback">
                                         {{ $message }}
                                     </div>
                                 @enderror
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="logo">Logo</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input @error('logo') is-invalid @enderror"
+                                                id="logo" name="logo" value="{{ old('logo', $company->logo) }}">
+                                            <label class="custom-file-label" for="logo">Choose file</label>
+                                        </div>
+                                        @error('logo')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="{{ Storage::url($company->logo) }}" alt="{{ $company->name }}"
+                                            class="img-thumbnail" style="height: 80px; cursor: pointer" data-toggle="modal"
+                                            data-target="#modal-logo">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label for="background">Background Profil</label>
+                                        <div class="input-group @error('background') is-invalid @enderror">
+                                            <div class="custom-file">
+                                                <input type="file"
+                                                    class="custom-file-input @error('background') is-invalid @enderror"
+                                                    id="background" name="background"
+                                                    value="{{ old('background', $company->background) }}">
+                                                <label class="custom-file-label" for="background">Choose file</label>
+                                            </div>
+                                        </div>
+                                        @error('background')
+                                            <div class="invalid-feedback position-absolute" style="top: 70px; z-index: 1; display: block">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <img src="{{ Storage::url($company->background) }}" alt="{{ $company->name }}"
+                                            class="img-thumbnail" style="height: 80px; cursor: pointer" data-toggle="modal"
+                                            data-target="#modal-background">
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Update</button>
@@ -128,7 +177,20 @@
             </div>
         </div>
         <!--Row-->
-
+        <div class="modal fade" id="modal-logo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
+                    <img src="{{ Storage::url($company->logo) }}" alt="{{ $company->name }}">
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-background" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content p-3">
+                    <img src="{{ Storage::url($company->background) }}" alt="{{ $company->name }}">
+                </div>
+            </div>
+        </div>
     </div>
     <!---Container Fluid-->
 @endsection

@@ -155,7 +155,7 @@
     </div>
     <!---Container Fluid-->
 @endsection
-
+@if ($population > 0)
 @push('scripts')
     <script src="{{ asset('ruang-admin/') }}/vendor/chart.js/Chart.min.js"></script>
     <script src="{{ asset('ruang-admin/vendor/datatables/jquery.dataTables.min.js') }}"></script>
@@ -275,3 +275,4 @@
         });
     </script>
 @endpush
+@endif

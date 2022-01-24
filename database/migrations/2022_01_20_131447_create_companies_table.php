@@ -23,9 +23,9 @@ class CreateCompaniesTable extends Migration
             $table->text('location')->nullable();
             $table->string('email')->nullable();
             $table->string('telephone')->nullable();
-            $table->text('map');
-            $table->text('logo');
-            $table->text('background');
+            $table->text('map')->nullable();
+            $table->text('logo')->nullable();
+            $table->text('background')->nullable();
             $table->timestamps();
         });
     }
