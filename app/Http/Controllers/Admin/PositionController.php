@@ -24,7 +24,7 @@ class PositionController extends Controller
                 ->addColumn('action', function ($row) {
                     $btn = "
                 <a 
-                    href='" . route('employee.edit', $row->id) . "' 
+                    href='" . route('position.edit', $row->id) . "' 
                     class='btn btn-warning btn-sm'
                     data-toggle='tooltip' 
                     data-placement='top' 
