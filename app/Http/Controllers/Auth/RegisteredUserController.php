@@ -50,7 +50,11 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
+        if(Auth::user()->isAdmin()) {
+            return redirect(RouteServiceProvider::HOME);
+        }else {
+            return redirect('/attendance');
+        }
 
-        return redirect(RouteServiceProvider::HOME);
     }
 }
