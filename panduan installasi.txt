@@ -1,0 +1,28 @@
+Jika anda orang yang pernah belajar laravel 
+proses installasi hampir sama seperti anda membuat proyek baru menggunakan laravel. 
+
+jika anda tidak begitu paham proses developing berikut panduanya
+
+# REQUIRMENTS
+1. Internet
+2. MySQL (bisa diinstall melalui XAMPP)
+3. Pastikan Composer versi 2, PHP +7.4 / 8 sudah terinstall dan terdaftar di environtment windows
+4. Untuk memastikan Composer dan PHP sudah terdaftar di windows silahkan buka CMD
+5. untuk composer: ketik composer -V 
+6. untuk PHP: ketik php -v
+7. jika masing masing keluar versinya maka bisa lanjut ke langkah installasi
+
+# INSTALLASI
+1. buat database (nama bebas sesuka kalian). bisa menggunakan phpmyadmin / tools yang lain
+2. ekstrak aplikasinya (bisa diletakan di folder mana saja karena tidak menggunakan xampp)
+3. copy file .env.example dan rename dengan nama .env lalu buka file .env
+4. cari baris 14 dan ganti value DB_DATABASE dengan nama database yang sudah kalian buat
+5. buka CMD dan arahkan ke folder aplikasi
+6. ketik: composer install (perintah tersebut akan mendownload dependensi laravel jadi tunggu sampai selesai)
+7. ketik: php artisan key:generate (perintah tersebut akan menggenerate kode unik)
+8. ketik (opsi 1): php artisan migrate (akan menginstall tabel ke dalam database yang sudah kalian buat)
+8. ketik (opsi 2): php artisan migrate --seed (akan menginstall tabel ke dalam database yang sudah kalian buat beserta data dummy nya)
+9. ketik: php artisan serve (untuk menjalankan server)
+10. buka browser dan arahakan url nya ke http//:localhost:8000 atau http://127.0.0.1:8000
+
+catatan: jika terdapat kendala saat installasi silahkan hubungi saya di: (WA) 087806967033
